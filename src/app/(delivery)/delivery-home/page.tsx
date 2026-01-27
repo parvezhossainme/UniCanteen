@@ -234,7 +234,7 @@ const DeliveryHome = () => {
     return (
         <div className="pt-10">
             {/* Header with Clock and Availability Toggle */}
-            <div className="bg-white rounded-lg p-6 shadow-sm mx-10 mb-6">
+            <div className="bg-white/70 backdrop-blur-md rounded-lg p-6 shadow-lg border border-white/20 mx-10 mb-6">
                 <div className="flex items-center justify-between">
                     {/* Real-time Clock */}
                     <div className="flex items-center gap-4">
@@ -293,34 +293,34 @@ const DeliveryHome = () => {
             </div>
 
             {/* Stats Dashboard */}
-            <div className="flex justify-between p-4 bg-white rounded-sm mx-10">
-                <div className="flex items-center gap-2 shadow-lg p-4">
-                    <ArrowUpDown className="border rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
+            <div className="flex justify-between p-4 bg-white/70 backdrop-blur-md rounded-lg shadow-lg border border-white/20 mx-10">
+                <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm shadow-lg p-4 rounded-lg border border-white/30">
+                    <ArrowUpDown className="border-2 rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
                     <div>
-                        <h2>Total Orders</h2>
-                        <h1>{stats?.totalOrders || 0}</h1>
+                        <h2 className="text-gray-700 font-medium">Total Orders</h2>
+                        <h1 className="text-2xl font-bold text-gray-800">{stats?.totalOrders || 0}</h1>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 shadow-lg p-4">
-                    <Wallet className="border rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
+                <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm shadow-lg p-4 rounded-lg border border-white/30">
+                    <Wallet className="border-2 rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
                     <div>
-                        <h2>Total Collections</h2>
-                        <h1>৳{stats?.totalCollections || 0}</h1>
+                        <h2 className="text-gray-700 font-medium">Total Collections</h2>
+                        <h1 className="text-2xl font-bold text-gray-800">৳{stats?.totalCollections || 0}</h1>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 shadow-lg p-4">
-                    <HandCoins className="border rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
+                <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm shadow-lg p-4 rounded-lg border border-white/30">
+                    <HandCoins className="border-2 rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
                     <div>
-                        <h2>Total Profit</h2>
-                        <h1>৳{Math.round(stats?.totalProfit || 0)}</h1>
+                        <h2 className="text-gray-700 font-medium">Total Profit</h2>
+                        <h1 className="text-2xl font-bold text-gray-800">৳{Math.round(stats?.totalProfit || 0)}</h1>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 shadow-lg p-4">
-                    <Ban className="border rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
+                <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm shadow-lg p-4 rounded-lg border border-white/30">
+                    <Ban className="border-2 rounded-full border-orange-500 text-orange-500 h-16 w-16 p-2" />
                     <div>
-                        <h2>Order Cancelled</h2>
-                        <h1>{stats?.cancelledOrders || 0}</h1>
+                        <h2 className="text-gray-700 font-medium">Order Cancelled</h2>
+                        <h1 className="text-2xl font-bold text-gray-800">{stats?.cancelledOrders || 0}</h1>
                     </div>
                 </div>
             </div>
@@ -328,7 +328,7 @@ const DeliveryHome = () => {
             {/* Orders Dashboard */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 mx-10">
                 {/* Recent Ongoing Orders */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-white/70 backdrop-blur-md rounded-lg p-6 shadow-lg border border-white/20">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-xl font-semibold text-gray-800">
                             Recent Ongoing Orders
@@ -355,8 +355,8 @@ const DeliveryHome = () => {
                             return (
                                 <div 
                                     key={order.id} 
-                                    className={`border rounded-lg p-4 mb-4 ${
-                                        index === 0 ? 'border-2 border-orange-300 bg-orange-50' : 'border border-gray-200'
+                                    className={`border rounded-lg p-4 mb-4 bg-white/40 backdrop-blur-sm ${
+                                        index === 0 ? 'border-2 border-orange-400' : 'border border-white/30'
                                     }`}
                                 >
                                     <div className="flex items-center gap-3">
@@ -392,7 +392,7 @@ const DeliveryHome = () => {
                 </div>
 
                 {/* Upcoming Orders */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-white/70 backdrop-blur-md rounded-lg p-6 shadow-lg border border-white/20">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">
                         Upcoming Orders
                     </h2>
@@ -409,7 +409,7 @@ const DeliveryHome = () => {
                             });
                             
                             return (
-                                <div key={order.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg mb-4">
+                                <div key={order.id} className="flex items-center justify-between p-4 border border-white/30 bg-white/40 backdrop-blur-sm rounded-lg mb-4">
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                                             <Settings className="w-6 h-6 text-gray-600" />
@@ -437,7 +437,7 @@ const DeliveryHome = () => {
             </div>
 
             {/* Notifications & Alerts */}
-            <div className="bg-white rounded-lg p-6 shadow-sm mt-6 mx-10">
+            <div className="bg-white/70 backdrop-blur-md rounded-lg p-6 shadow-lg border border-white/20 mt-6 mx-10">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <div className="relative">
@@ -476,8 +476,8 @@ const DeliveryHome = () => {
                             return (
                                 <div 
                                     key={notification.id}
-                                    className={`flex items-start gap-3 p-3 rounded cursor-pointer transition-colors ${
-                                        notification.isRead ? 'hover:bg-gray-50' : 'bg-blue-50 hover:bg-blue-100'
+                                    className={`flex items-start gap-3 p-3 rounded cursor-pointer transition-colors backdrop-blur-sm ${
+                                        notification.isRead ? 'bg-white/30 hover:bg-white/40' : 'bg-blue-100/60 hover:bg-blue-100/80 border border-blue-200/50'
                                     }`}
                                     onClick={() => !notification.isRead && markNotificationAsRead(notification.id)}
                                 >

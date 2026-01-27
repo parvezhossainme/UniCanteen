@@ -45,17 +45,17 @@ export default function DeliSideBar() {
             <div className="pr-4">
                 <div
                     className={cn(
-                        "w-[200px]", // Default expanded width during SSR
-                        "border-r border-white/30 transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-white/5 dark:bg-black/5 backdrop-blur-lg"
+                        "w-[260px]",
+                        "border-r border-orange-200/50 dark:border-orange-900/50 hidden sm:flex h-full bg-gradient-to-b from-orange-50/90 to-amber-50/90 dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-md shadow-lg"
                     )}
                 >
-                    <aside className="flex h-full flex-col w-full break-words px-4 overflow-x-hidden columns-1">
-                        {/* Skeleton loading state */}
-                        <div className="animate-pulse">
-                            <div className="h-4 bg-gray-200 rounded mb-2 mt-4"></div>
+                    <aside className="flex h-full flex-col w-full px-3 py-4 overflow-x-hidden">
+                        <div className="animate-pulse space-y-4">
+                            <div className="h-3 bg-muted rounded w-20 mb-4"></div>
                             <div className="space-y-2">
-                                <div className="h-8 bg-gray-100 rounded"></div>
-                                <div className="h-8 bg-gray-100 rounded"></div>
+                                <div className="h-10 bg-muted/50 rounded-lg"></div>
+                                <div className="h-10 bg-muted/50 rounded-lg"></div>
+                                <div className="h-10 bg-muted/50 rounded-lg"></div>
                             </div>
                         </div>
                     </aside>
@@ -68,16 +68,18 @@ export default function DeliSideBar() {
         <div className="pr-4">
             <div
                 className={cn(
-                    isSidebarExpanded ? "w-[200px]" : "w-[68px]",
-                    "border-r border-white/30 transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-white/5 dark:bg-black/5 backdrop-blur-lg"
+                    isSidebarExpanded ? "w-[260px]" : "w-[68px]",
+                    "border-r border-orange-200/50 dark:border-orange-900/50 transition-all duration-300 ease-in-out hidden sm:flex h-full bg-gradient-to-b from-orange-50/90 to-amber-50/90 dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-md shadow-lg"
                 )}
             >
-                <aside className="flex h-full flex-col w-full break-words px-4 overflow-x-hidden columns-1">
+                <aside className="flex h-full flex-col w-full px-3 py-4 overflow-x-hidden">
                     {navSections.map((section, sIdx) => (
-                        <div key={sIdx} className="mb-4">
-                            <div className="text-xs font-semibold text-muted-foreground uppercase mb-2 mt-4 tracking-wide">
-                                {isSidebarExpanded ? section.section : ""}
-                            </div>
+                        <div key={sIdx} className="mb-6">
+                            {isSidebarExpanded && (
+                                <div className="text-xs font-bold text-orange-700 dark:text-orange-400 uppercase mb-2 mt-6 tracking-widest">
+                                    {section.section}
+                                </div>
+                            )}
                             <div className="flex flex-col space-y-1">
                                 {section.items.map((item, idx) => (
                                     <Fragment key={idx}>
@@ -93,20 +95,21 @@ export default function DeliSideBar() {
                             </div>
                         </div>
                     ))}
-                    <div className="sticky bottom-0 mt-auto whitespace-nowrap mb-4 transition duration-200 block">
+                    <div className="mt-auto mb-2">
                         <ThemeToggle isDropDown={true} />
                     </div>
                 </aside>
-                <div className="mt-[calc(calc(90vh)-40px)] relative">
+                <div className="relative">
                     <button
                         type="button"
-                        className="absolute bottom-32 right-[-12px] flex h-6 w-6 items-center justify-center border border-muted-foreground/20 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
+                        className="absolute bottom-20 right-[-12px] flex h-6 w-6 items-center justify-center border border-orange-300 dark:border-orange-700 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors z-50"
                         onClick={toggleSidebar}
+                        aria-label="Toggle sidebar"
                     >
                         {isSidebarExpanded ? (
-                            <ChevronLeft size={16} className="stroke-foreground" />
+                            <ChevronLeft size={14} className="text-foreground" />
                         ) : (
-                            <ChevronRight size={16} className="stroke-foreground" />
+                            <ChevronRight size={14} className="text-foreground" />
                         )}
                     </button>
                 </div>
@@ -127,40 +130,38 @@ export const SideNavItem: React.FC<{
             {isSidebarExpanded ? (
                 <Link
                     href={path}
-                    className={`h-full relative flex items-center whitespace-nowrap rounded-md ${
+                    className={cn(
+                        "relative flex items-center whitespace-nowrap rounded-md px-2 py-1.5 transition-all duration-200",
                         active
-                            ? "font-base text-sm bg-white/20 dark:bg-black/20 backdrop-blur-md shadow-sm text-neutral-700 dark:text-white"
-                            : "hover:bg-white/10 hover:backdrop-blur-md hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-black/10 dark:hover:text-white"
-                    }`}
+                            ? "bg-orange-100/80 dark:bg-orange-900/30 text-orange-900 dark:text-orange-100 font-medium shadow-sm border border-orange-200/50 dark:border-orange-800/50"
+                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/50 hover:text-orange-700 dark:hover:text-orange-300"
+                    )}
                 >
-                    <div className="relative font-base text-sm py-1.5 px-2 flex flex-row items-center space-x-2 rounded-md duration-100">
-                        {icon}
-                        <span>{label}</span>
+                    <div className="flex flex-row items-center space-x-3">
+                        <span className={cn("transition-colors", active ? "text-orange-600 dark:text-orange-400" : "")}>
+                            {icon}
+                        </span>
+                        <span className="text-base truncate">{label}</span>
                     </div>
                 </Link>
             ) : (
-                <TooltipProvider delayDuration={70}>
+                <TooltipProvider delayDuration={0}>
                     <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                             <Link
                                 href={path}
-                                className={`h-full relative flex items-center whitespace-nowrap rounded-md ${
+                                className={cn(
+                                    "relative flex items-center justify-center whitespace-nowrap rounded-md p-2 transition-all duration-200",
                                     active
-                                        ? "font-base text-sm bg-white/20 dark:bg-black/20 backdrop-blur-md text-neutral-700 dark:text-white"
-                                        : "hover:bg-white/10 hover:backdrop-blur-md hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-black/10 dark:hover:text-white"
-                                }`}
+                                        ? "bg-orange-100/80 dark:bg-orange-900/30 text-orange-900 dark:text-orange-100 font-medium shadow-sm border border-orange-200/50 dark:border-orange-800/50"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/50 hover:text-orange-700 dark:hover:text-orange-300"
+                                )}
                             >
-                                <div className="relative font-base text-sm p-2 flex flex-row items-center space-x-2 rounded-md duration-100">
-                                    {icon}
-                                </div>
+                                {icon}
                             </Link>
                         </TooltipTrigger>
-                        <TooltipContent
-                            side="left"
-                            className="px-3 py-1.5 text-xs"
-                            sideOffset={10}
-                        >
-                            <span>{label}</span>
+                        <TooltipContent side="right" sideOffset={15}>
+                            {label}
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
