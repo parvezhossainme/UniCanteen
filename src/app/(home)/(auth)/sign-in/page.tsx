@@ -60,7 +60,7 @@ export default function SignIn() {
             <div className="w-full max-w-xl max-h-[95vh] overflow-y-auto">
                 <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-2xl border-l-4 border-orange-500 overflow-hidden">
                     {/* Header Section */}
-                    <div className="bg-gradient-to-br from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-700/80 dark:via-slate-800/80 dark:to-slate-900/80 backdrop-blur-md p-8 border-b-2 border-orange-200 dark:border-orange-700/50">
+                    <div className="bg-linear-to-br from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-700/80 dark:via-slate-800/80 dark:to-slate-900/80 backdrop-blur-md p-8 border-b-2 border-orange-200 dark:border-orange-700/50">
                         <div className="text-center">
                             <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
                                 Welcome Back

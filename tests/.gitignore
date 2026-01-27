@@ -1,0 +1,11 @@
+# Ignore generated test artifacts
+screenshots/
+reports/
+*.log
+
+# Environment variables
+.env
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

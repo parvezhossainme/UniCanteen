@@ -7,7 +7,11 @@
         "build": "prisma generate && next build",
         "start": "next start",
         "lint": "next lint",
-        "postinstall": "prisma generate"
+        "postinstall": "prisma generate",
+        "test": "ts-node tests/e2e/order.test.ts",
+        "test:login": "ts-node tests/e2e/login.test.ts",
+        "test:home": "ts-node tests/e2e/home.test.ts",
+        "test:order": "ts-node tests/e2e/order.test.ts"
     },
     "dependencies": {
         "@clerk/nextjs": "^6.36.5",
@@ -37,10 +41,15 @@
         "@types/pg": "^8.16.0",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "@types/selenium-webdriver": "^4.35.5",
+        "chromedriver": "^144.0.0",
         "eslint": "^9",
         "eslint-config-next": "^16.1.1",
+        "geckodriver": "^6.1.0",
         "prisma": "^7.2.0",
+        "selenium-webdriver": "^4.40.0",
         "tailwindcss": "^4",
+        "ts-node": "^10.9.2",
         "tsx": "^4.20.4",
         "tw-animate-css": "^1.3.6",
         "typescript": "^5"
