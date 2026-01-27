@@ -34,9 +34,14 @@ export default function customerLayout({
                 <body className={`${exo.className} antialiased`} suppressHydrationWarning>
                     <CartProvider>
                         <CusNavBar />
-                        <div className="flex h-[calc(100vh-64px)]">
+                        <div 
+                            className="flex h-[calc(100vh-64px)] bg-cover bg-center bg-fixed"
+                            style={{ 
+                                backgroundImage: "url('/top-view-thanksgiving-food-border-composition-with-copy-space.jpg')"
+                            }}
+                        >
                             <CusSideBar />
-                            <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-auto">
+                            <main className="flex-1 overflow-auto">
                                 {children}
                             </main>
                         </div>

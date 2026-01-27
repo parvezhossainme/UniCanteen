@@ -187,21 +187,26 @@ const LanguageSettingsPage = () => {
   };
 
   return (
-    <div className="p-6  mx-auto space-y-6">
+    <div className="p-6 mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Languages className="w-6 h-6" />
-            Language & Regional Settings
-          </h1>
-          <p className="text-gray-600 mt-1">
-            Customize your language preferences and regional formats
-          </p>
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10 -left-4 -right-4"></div>
+          <div className="relative">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
+              <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-2 rounded-xl">
+                <Languages className="w-6 h-6 text-white" />
+              </div>
+              Language & Regional Settings
+            </h1>
+            <p className="text-gray-700 font-semibold mt-1">
+              Customize your language preferences and regional formats
+            </p>
+          </div>
         </div>
         
         {success && (
-          <div className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg">
+          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold shadow-lg">
             <Check className="w-4 h-4" />
             <span>Settings saved successfully!</span>
           </div>
@@ -209,16 +214,20 @@ const LanguageSettingsPage = () => {
       </div>
 
       {/* Language Selection */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="p-6 border-b">
-          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <Globe className="w-5 h-5" />
-            Interface Language
-          </h2>
-          <p className="text-gray-600 mt-1">
-            Choose your preferred language for the canteen management interface
-          </p>
-        </div>
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl opacity-5"></div>
+        <div className="relative bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-blue-500">
+          <div className="p-6 border-b">
+            <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-2">
+              <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-2 rounded-xl">
+                <Globe className="w-5 h-5 text-white" />
+              </div>
+              Interface Language
+            </h2>
+            <p className="text-gray-700 font-semibold mt-1">
+              Choose your preferred language for the canteen management interface
+            </p>
+          </div>
         
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -270,6 +279,7 @@ const LanguageSettingsPage = () => {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       {/* Regional Settings */}

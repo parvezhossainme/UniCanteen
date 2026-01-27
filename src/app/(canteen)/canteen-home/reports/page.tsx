@@ -215,9 +215,12 @@ const CustomerReports = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Customer Reports & Complaints</h1>
-          <p className="text-gray-600">Manage customer feedback and resolve issues</p>
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10 -left-4 -right-4"></div>
+          <div className="relative">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Customer Reports & Complaints</h1>
+            <p className="text-gray-700 font-semibold">Manage customer feedback and resolve issues</p>
+          </div>
         </div>
         
         <div className="flex gap-2">
@@ -236,13 +239,13 @@ const CustomerReports = () => {
                 alert('Failed to seed data');
               }
             }}
-            className="flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm"
+            className="flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl text-sm font-bold shadow-lg hover:scale-105 transition-all"
           >
             Add Sample Data
           </button>
           <button
             onClick={fetchReports}
-            className="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+            className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Refresh

@@ -35,11 +35,23 @@ export default function RootLayout({
             <html lang="en" className={exo.variable}>
                 <body className={`${exo.className} antialiased`} suppressHydrationWarning>
                     <HomeNavBar />
-                    <div className="flex h-[calc(100vh-64px)]">
-                        <HomeSideBar />
-                        <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-auto">
-                            {children}
-                        </main>
+                    <div className="flex h-[calc(100vh-64px)] relative">
+                        {/* Background with blur overlay */}
+                        <div 
+                            className="absolute inset-0 bg-cover bg-center bg-fixed blur-[2px]"
+                            style={{ 
+                                backgroundImage: "url('/top-view-thanksgiving-food-border-composition-with-copy-space.jpg')"
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-white/20 dark:bg-black/30" />
+                        
+                        {/* Content */}
+                        <div className="relative z-10 flex w-full">
+                            <HomeSideBar />
+                            <main className="flex-1 overflow-auto">
+                                {children}
+                            </main>
+                        </div>
                     </div>
                 </body>
             </html>

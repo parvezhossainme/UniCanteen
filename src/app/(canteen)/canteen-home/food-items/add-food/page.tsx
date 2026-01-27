@@ -65,18 +65,31 @@ export default function AddFoodPage() {
   }
 
   return (
-    <div className=" mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Add New Food Item</h1>
+    <div className="mx-auto p-6 ">
+      {/* Header */}
+      <div className="mb-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10"></div>
+        <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-6 rounded-3xl shadow-lg border-l-[6px] border-orange-500">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Add New Food Item</h1>
+          <p className="text-gray-800 dark:text-gray-200 text-sm md:text-base font-semibold mt-2">Fill in the details to add a new item to your menu</p>
+        </div>
+      </div>
 
       {error && (
-        <div className="bg-red-50 text-red-500 p-4 rounded-md mb-6">
-          {error}
+        <div className="mb-6 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-rose-500 rounded-2xl opacity-10"></div>
+          <div className="relative bg-white dark:bg-slate-800 border-l-[6px] border-red-500 rounded-2xl p-4 shadow-lg">
+            <p className="text-red-700 dark:text-red-400 font-semibold">{error}</p>
+          </div>
         </div>
       )}
 
-      <form action={handleSubmit} className="space-y-6">
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl opacity-5"></div>
+        <div className="relative bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+          <form action={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-2">
+          <label htmlFor="name" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Food Name *
           </label>
           <input
@@ -84,13 +97,13 @@ export default function AddFoodPage() {
             id="name"
             name="name"
             required
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
             placeholder="Enter food name"
           />
         </div>
 
         <div>
-          <label htmlFor="price" className="block text-sm font-medium mb-2">
+          <label htmlFor="price" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Price (৳) *
           </label>
           <input
@@ -100,39 +113,39 @@ export default function AddFoodPage() {
             step="0.01"
             min="0"
             required
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
             placeholder="0.00"
           />
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium mb-2">
+          <label htmlFor="description" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Description
           </label>
           <textarea
             id="description"
             name="description"
             rows={3}
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
             placeholder="Enter food description"
           ></textarea>
         </div>
 
         <div>
-          <label htmlFor="image" className="block text-sm font-medium mb-2">
+          <label htmlFor="image" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Image URL
           </label>
           <input
             type="url"
             id="image"
             name="image"
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
         <div>
-          <label htmlFor="stocks" className="block text-sm font-medium mb-2">
+          <label htmlFor="stocks" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Initial Stock *
           </label>
           <input
@@ -142,12 +155,12 @@ export default function AddFoodPage() {
             min="0"
             defaultValue="10"
             required
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
           />
         </div>
 
         <div>
-          <label htmlFor="category" className="block text-sm font-medium mb-2">
+          <label htmlFor="category" className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
             Food Category *
           </label>
           <select
@@ -155,7 +168,7 @@ export default function AddFoodPage() {
             name="category"
             multiple
             required
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
             style={{ height: "160px" }}
           >
             {FOOD_CATEGORIES.map((cat) => (
@@ -164,32 +177,32 @@ export default function AddFoodPage() {
               </option>
             ))}
           </select>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-600 dark:text-gray-400 font-semibold mt-2">
             Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.
           </p>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Availability</label>
-          <div className="flex gap-4">
-            <label className="inline-flex items-center">
+          <label className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">Availability</label>
+          <div className="flex gap-6">
+            <label className="inline-flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="availability"
                 value="true"
                 defaultChecked
-                className="form-radio h-4 w-4 text-orange-600"
+                className="form-radio h-5 w-5 text-orange-600 focus:ring-orange-500 cursor-pointer"
               />
-              <span className="ml-2">Available</span>
+              <span className="ml-2 font-semibold text-gray-800 dark:text-gray-200">Available</span>
             </label>
-            <label className="inline-flex items-center">
+            <label className="inline-flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="availability"
                 value="false"
-                className="form-radio h-4 w-4 text-orange-600"
+                className="form-radio h-5 w-5 text-orange-600 focus:ring-orange-500 cursor-pointer"
               />
-              <span className="ml-2">Not Available</span>
+              <span className="ml-2 font-semibold text-gray-800 dark:text-gray-200">Not Available</span>
             </label>
           </div>
         </div>
@@ -197,11 +210,13 @@ export default function AddFoodPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700 disabled:bg-orange-300 transition-colors"
+          className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white py-4 px-6 rounded-xl font-bold shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {loading ? "Adding..." : "Add Food Item"}
         </button>
-      </form>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

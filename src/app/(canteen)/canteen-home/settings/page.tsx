@@ -160,14 +160,17 @@ export default function SettingsPage() {
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Canteen Settings</h1>
-          <p className="text-gray-500 mt-1">Manage your canteen configuration and preferences</p>
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10 -left-4 -right-4"></div>
+          <div className="relative">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Canteen Settings</h1>
+            <p className="text-gray-700 font-semibold mt-1">Manage your canteen configuration and preferences</p>
+          </div>
         </div>
         <button
           onClick={saveSettings}
           disabled={isSaving}
-          className="bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:opacity-50 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:scale-105 transition-all"
         >
           <Save className="w-4 h-4" />
           {isSaving ? 'Saving...' : 'Save Changes'}
@@ -175,10 +178,10 @@ export default function SettingsPage() {
       </div>
 
       {saveMessage && (
-        <div className={`mb-6 p-4 rounded-lg flex items-center gap-2 ${
+        <div className={`mb-6 p-4 rounded-xl flex items-center gap-2 font-bold shadow-lg ${
           saveMessage.type === 'success' 
-            ? 'bg-green-50 text-green-700 border border-green-200'
-            : 'bg-red-50 text-red-700 border border-red-200'
+            ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white'
+            : 'bg-gradient-to-r from-red-500 to-rose-500 text-white'
         }`}>
           {saveMessage.type === 'success' ? (
             <CheckCircle className="w-5 h-5" />

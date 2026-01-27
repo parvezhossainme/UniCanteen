@@ -7,8 +7,6 @@ import { BellIcon } from "@heroicons/react/24/outline";
 import {
     SignedIn,
     SignedOut,
-    SignInButton,
-    SignUpButton,
     UserButton,
 } from "@clerk/nextjs";
 
@@ -30,16 +28,16 @@ const HomeNavBar = () => {
                 <ul className="flex gap-4">
                     <li>
                         <SignedOut>
-                            <SignInButton mode="modal">
+                            <Link href="/sign-in">
                                 <button className="signBtn">Sign In</button>
-                            </SignInButton>
+                            </Link>
                         </SignedOut>
                     </li>
                     <li>
                         <SignedOut>
-                            <SignUpButton mode="modal">
+                            <Link href="/sign-up">
                                 <button className="signBtn">Sign Up</button>
-                            </SignUpButton>
+                            </Link>
                         </SignedOut>
                     </li>
                     <li>

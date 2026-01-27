@@ -33,7 +33,12 @@ export default function canteenLayout({
                     <CanNavBar />
                     <div className="flex h-[calc(100vh-64px)]">
                         <CanSideBar />
-                        <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-auto">
+                        <main 
+                            className="flex-1 overflow-auto bg-cover bg-center bg-fixed"
+                            style={{ 
+                                backgroundImage: "url('/top-view-thanksgiving-food-border-composition-with-copy-space.jpg')"
+                            }}
+                        >
                             {children}
                         </main>
                     </div>

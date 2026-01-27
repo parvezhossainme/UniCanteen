@@ -127,25 +127,38 @@ export default function OngoingOrders() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-                <span className="ml-2">Loading your orders...</span>
+            <div className="flex items-center justify-center min-h-screen backdrop-blur-sm">
+                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-8 shadow-2xl border-l-[6px] border-orange-500">
+                    <div className="flex items-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-orange-500 mr-4"></div>
+                        <div>
+                            <p className="text-xl font-bold text-slate-900 dark:text-white">Loading Your Orders</p>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Fetching real-time order status...</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="p-6">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <h2 className="text-red-800 font-semibold">Error Loading Orders</h2>
-                    <p className="text-red-600">{error}</p>
-                    <button 
-                        onClick={fetchOrders}
-                        className="mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
-                    >
-                        Retry
-                    </button>
+            <div className="max-w-7xl mx-auto p-6">
+                <div className="bg-red-50/70 dark:bg-red-900/30 backdrop-blur-md border-l-[6px] border-red-500 p-8 shadow-2xl">
+                    <div className="flex items-start">
+                        <XCircle className="w-12 h-12 text-red-600 dark:text-red-400 mr-4 shrink-0" />
+                        <div className="flex-1">
+                            <h2 className="text-2xl font-extrabold text-red-800 dark:text-red-300 mb-2">Error Loading Orders</h2>
+                            <p className="text-red-600 dark:text-red-400 text-lg mb-4">{error}</p>
+                            <button 
+                                onClick={fetchOrders}
+                                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 font-extrabold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                            >
+                                <RefreshCw className="w-5 h-5 inline mr-2" />
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -153,81 +166,100 @@ export default function OngoingOrders() {
 
     if (orders.length === 0) {
         return (
-            <div className="text-center py-12">
-                <Package className="mx-auto h-12 w-12 text-gray-400" />
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No ongoing orders</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                    Your active orders will appear here when you place them.
-                </p>
+            <div className="max-w-7xl mx-auto p-6">
+                <div className="text-center py-16 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-2xl border-l-[6px] border-orange-500 p-12">
+                    <div className="bg-gradient-to-br from-orange-500 to-amber-500 w-24 h-24 mx-auto mb-6 flex items-center justify-center shadow-xl">
+                        <Package className="w-12 h-12 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-3">No Ongoing Orders</h3>
+                    <p className="text-slate-700 dark:text-slate-300 text-lg font-medium">
+                        Your active orders will appear here when you place them.
+                    </p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="max-w-7xl mx-auto p-6 space-y-6 backdrop-blur-sm">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Ongoing Orders</h1>
-                    <p className="text-gray-600">Track your current orders in real-time</p>
-                </div>
-                <div className="mt-4 sm:mt-0 flex items-center space-x-4">
-                    <button
-                        onClick={() => setAutoRefresh(!autoRefresh)}
-                        className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium ${
-                            autoRefresh 
-                                ? 'bg-green-100 text-green-700 border border-green-200' 
-                                : 'bg-gray-100 text-gray-700 border border-gray-200'
-                        }`}
-                    >
-                        <RefreshCw className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-spin' : ''}`} />
-                        Auto Refresh
-                    </button>
-                    <button
-                        onClick={fetchOrders}
-                        className="flex items-center px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium"
-                    >
-                        <RefreshCw className="w-4 h-4 mr-2" />
-                        Refresh Now
-                    </button>
+            <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-2xl border-l-[6px] border-orange-500 p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center mb-4 sm:mb-0">
+                        <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-4 shadow-xl mr-4">
+                            <Clock className="w-10 h-10 text-white" />
+                        </div>
+                        <div>
+                            <h1 className="text-5xl font-extrabold text-slate-900 dark:text-white drop-shadow-lg">Ongoing Orders</h1>
+                            <p className="text-slate-700 dark:text-slate-300 text-lg font-medium mt-1">Track your current orders in real-time</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                        <button
+                            onClick={() => setAutoRefresh(!autoRefresh)}
+                            className={`flex items-center px-5 py-3 text-sm font-extrabold shadow-xl transition-all duration-300 hover:scale-105 ${
+                                autoRefresh 
+                                    ? 'bg-gradient-to-r from-green-500 to-green-600 text-white border-2 border-green-400' 
+                                    : 'bg-slate-100 text-slate-700 border-2 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600'
+                            }`}
+                        >
+                            <RefreshCw className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-spin' : ''}`} />
+                            Auto Refresh {autoRefresh ? 'ON' : 'OFF'}
+                        </button>
+                        <button
+                            onClick={fetchOrders}
+                            className="flex items-center px-5 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                        >
+                            <RefreshCw className="w-4 h-4 mr-2" />
+                            Refresh
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                <div className="bg-white p-4 rounded-lg border">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-6 border-l-[6px] border-yellow-500 shadow-xl hover:scale-105 transition-transform duration-200">
                     <div className="flex items-center">
-                        <Clock className="h-5 w-5 text-yellow-600 mr-2" />
+                        <div className="p-3 bg-gradient-to-br from-yellow-400 to-amber-400 rounded-xl shadow-lg mr-3">
+                            <Clock className="h-6 w-6 text-white" />
+                        </div>
                         <div>
-                            <p className="text-sm text-gray-600">Pending</p>
-                            <p className="text-xl font-semibold">{orders.filter(o => o.status === 'PENDING').length}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Pending</p>
+                            <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{orders.filter(o => o.status === 'PENDING').length}</p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg border">
+                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-6 border-l-[6px] border-purple-500 shadow-xl hover:scale-105 transition-transform duration-200">
                     <div className="flex items-center">
-                        <Package className="h-5 w-5 text-purple-600 mr-2" />
+                        <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg mr-3">
+                            <Package className="h-6 w-6 text-white" />
+                        </div>
                         <div>
-                            <p className="text-sm text-gray-600">Preparing</p>
-                            <p className="text-xl font-semibold">{orders.filter(o => ['ACCEPTED', 'IN_PROGRESS'].includes(o.status)).length}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Preparing</p>
+                            <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{orders.filter(o => ['ACCEPTED', 'IN_PROGRESS'].includes(o.status)).length}</p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg border">
+                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-6 border-l-[6px] border-blue-500 shadow-xl hover:scale-105 transition-transform duration-200">
                     <div className="flex items-center">
-                        <Truck className="h-5 w-5 text-blue-600 mr-2" />
+                        <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg mr-3">
+                            <Truck className="h-6 w-6 text-white" />
+                        </div>
                         <div>
-                            <p className="text-sm text-gray-600">Delivering</p>
-                            <p className="text-xl font-semibold">{orders.filter(o => o.status === 'DELIVERING').length}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Delivering</p>
+                            <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{orders.filter(o => o.status === 'DELIVERING').length}</p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg border">
+                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-6 border-l-[6px] border-green-500 shadow-xl hover:scale-105 transition-transform duration-200">
                     <div className="flex items-center">
-                        <span className="h-5 w-5 text-green-600 mr-2">৳</span>
+                        <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-lg mr-3 text-2xl font-extrabold text-white">
+                            ৳
+                        </div>
                         <div>
-                            <p className="text-sm text-gray-600">Total Value</p>
-                            <p className="text-xl font-semibold">৳{orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(0)}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Total Value</p>
+                            <p className="text-2xl font-extrabold text-gray-900 dark:text-white">৳{orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(0)}</p>
                         </div>
                     </div>
                 </div>
@@ -246,22 +278,22 @@ export default function OngoingOrders() {
                 return (
                     <div
                         key={order.id}
-                        className="bg-white rounded-xl shadow p-4"
+                        className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-6 hover:scale-[1.01] transition-transform duration-200"
                     >
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3 flex-wrap">
                                 <span
-                                    className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-extrabold shadow-lg ${
                                         statusStyles[order.status]
                                     }`}
                                 >
                                     {statusIcons[order.status]}
                                     {order.status.replace(/_/g, " ")}
                                 </span>
-                                <span className="text-sm text-gray-500">
+                                <span className="text-sm text-gray-600 dark:text-gray-300 font-semibold">
                                     Order ID: {order.id.slice(0, 8)}
                                 </span>
-                                <span className="text-sm text-gray-500">
+                                <span className="text-sm text-gray-600 dark:text-gray-300 font-semibold">
                                     Placed {created.toLocaleDateString()}{" "}
                                     {created.toLocaleTimeString([], {
                                         hour: "2-digit",
@@ -270,47 +302,47 @@ export default function OngoingOrders() {
                                 </span>
                             </div>
                             <div className="text-right">
-                                <div className="text-gray-600 text-sm">
+                                <div className="text-gray-600 dark:text-gray-300 text-sm font-semibold">
                                     Total
                                 </div>
-                                <div className="text-green-600 font-bold text-lg">
+                                <div className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent font-extrabold text-2xl">
                                     ৳{order.totalPrice}
                                 </div>
                             </div>
                         </div>
                         
                         {/* Status message */}
-                        <div className="mt-2 px-3 py-2 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-600">
+                        <div className="mb-4 px-4 py-3 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl border-l-4 border-orange-500 shadow-md">
+                            <p className="text-sm text-gray-700 dark:text-gray-200 font-semibold">
                                 {getStatusMessage(order.status)}
                             </p>
                         </div>
-                        <div className="mt-4 grid md:grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-2 gap-4 mb-4">
                             {Object.entries(itemsByCanteen).map(
                                 ([canteenName, items]) => (
                                     <div
                                         key={canteenName}
-                                        className="border rounded-lg p-3"
+                                        className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border-l-4 border-amber-500 shadow-lg"
                                     >
-                                        <div className="font-semibold mb-2">
+                                        <div className="font-extrabold text-gray-900 dark:text-white mb-3 text-lg">
                                             {canteenName.replace(/_/g, " ")}
                                         </div>
-                                        <ul className="space-y-2">
+                                        <ul className="space-y-3">
                                             {items.map((it) => (
                                                 <li
                                                     key={it.id}
-                                                    className="flex items-center justify-between text-sm"
+                                                    className="flex items-center justify-between text-sm bg-gradient-to-r from-orange-50/50 to-amber-50/50 dark:from-orange-900/10 dark:to-amber-900/10 p-3 rounded-lg border-l-2 border-orange-400"
                                                 >
                                                     <div className="truncate">
-                                                        <span className="font-medium">
+                                                        <span className="font-extrabold text-gray-900 dark:text-white">
                                                             {it.food.name}
                                                         </span>
-                                                        <span className="text-gray-500">
+                                                        <span className="text-gray-600 dark:text-gray-300 font-semibold">
                                                             {" "}
                                                             × {it.quantity}
                                                         </span>
                                                     </div>
-                                                    <div className="text-gray-700">
+                                                    <div className="text-orange-600 dark:text-orange-400 font-extrabold text-base">
                                                         ৳
                                                         {it.food.price *
                                                             it.quantity}
@@ -322,16 +354,18 @@ export default function OngoingOrders() {
                                 )
                             )}
                         </div>
-                        <div className="mt-4 space-y-3">
+                        <div className="space-y-4">
                             {/* Delivery Information */}
-                            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                <div className="flex items-center space-x-3">
-                                    <User className="w-5 h-5 text-gray-400" />
+                            <div className="flex items-center justify-between p-5 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl border-l-4 border-blue-500 shadow-md">
+                                <div className="flex items-center space-x-4">
+                                    <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg">
+                                        <User className="w-6 h-6 text-white" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">
+                                        <p className="text-sm font-extrabold text-gray-900 dark:text-white mb-1">
                                             Delivery Person
                                         </p>
-                                        <p className="text-sm text-gray-600">
+                                        <p className="text-sm text-gray-700 dark:text-gray-200 font-semibold">
                                             {order.assignedTo && order.deliveryMan?.user?.name
                                                 ? order.deliveryMan.user.name
                                                 : order.status === "PENDING"
@@ -341,9 +375,9 @@ export default function OngoingOrders() {
                                                 : "Not assigned yet"}
                                         </p>
                                         {order.deliveryMan?.user?.phone && (
-                                            <div className="flex items-center mt-1">
-                                                <Phone className="w-3 h-3 text-gray-400 mr-1" />
-                                                <p className="text-xs text-gray-500">
+                                            <div className="flex items-center mt-2">
+                                                <Phone className="w-4 h-4 text-blue-600 dark:text-blue-400 mr-2" />
+                                                <p className="text-sm text-gray-700 dark:text-gray-200 font-semibold">
                                                     {order.deliveryMan.user.phone}
                                                 </p>
                                             </div>
@@ -352,8 +386,8 @@ export default function OngoingOrders() {
                                 </div>
                                 {order.deliveryAt && (
                                     <div className="text-right">
-                                        <p className="text-sm font-medium text-gray-900">ETA</p>
-                                        <p className="text-sm text-gray-600">
+                                        <p className="text-sm font-extrabold text-gray-900 dark:text-white mb-1">ETA</p>
+                                        <p className="text-base text-blue-600 dark:text-blue-400 font-extrabold">
                                             {new Date(order.deliveryAt).toLocaleTimeString([], {
                                                 hour: "2-digit",
                                                 minute: "2-digit",
@@ -367,11 +401,11 @@ export default function OngoingOrders() {
                             <div className="flex justify-end">
                                 <button
                                     onClick={() => startChat(order.id)}
-                                    className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-60 transition-colors"
+                                    className="flex items-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-60 disabled:transform-none"
                                     disabled={startingChatFor === order.id}
                                     aria-busy={startingChatFor === order.id}
                                 >
-                                    <MessageCircle className="w-4 h-4" />
+                                    <MessageCircle className="w-5 h-5" />
                                     <span>
                                         {startingChatFor === order.id ? "Starting…" : "Start Chat"}
                                     </span>

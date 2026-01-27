@@ -10,20 +10,18 @@ const IsCustomerProtectedRoute = createRouteMatcher(["/customer(.*)"]);
 const IsDeliveryProtectedRoute = createRouteMatcher(["/delivery(.*)"]);
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
-// In Next 16, proxy exports a default function
+
 export default clerkMiddleware(async (auth, req: NextRequest) => {
     const { userId, sessionClaims } = await auth();
     const path = req.nextUrl.pathname;
     
-    // sessionClaims.metadata is now properly typed in Clerk v6
+
     const role = (sessionClaims?.metadata?.role as RoleType) || "CUSTOMER";
 
-    // 1. Not signed in? Redirect public
     if (!userId && !publicRoutes(req)) {
         return NextResponse.redirect(new URL("/", req.url));
     }
 
-    // 2. Dashboard Redirect Logic
     if (userId && path === "/") {
         const dashboardMap: Record<string, string> = {
             ADMIN: "/admin-home",

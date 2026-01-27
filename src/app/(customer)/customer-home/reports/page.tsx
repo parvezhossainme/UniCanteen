@@ -279,65 +279,80 @@ const CustomerReportsPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex items-center space-x-2">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading reports...</span>
+      <div className="flex items-center justify-center min-h-screen backdrop-blur-sm">
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-8 shadow-2xl border-l-[6px] border-orange-500 max-w-md">
+          <div className="flex items-center space-x-3">
+            <Loader2 className="w-8 h-8 animate-spin text-orange-600" />
+            <div>
+              <p className="text-xl font-extrabold text-gray-900 dark:text-white">Loading Reports</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Fetching your reports data...</p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto p-6 space-y-8 backdrop-blur-sm">
       {/* Notification */}
       {notification && (
-        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg flex items-center space-x-2 ${
+        <div className={`fixed top-4 right-4 z-50 p-4 rounded-xl shadow-2xl flex items-center space-x-2 backdrop-blur-md ${
           notification.type === 'success' 
-            ? 'bg-green-100 text-green-800 border border-green-200' 
-            : 'bg-red-100 text-red-800 border border-red-200'
+            ? 'bg-green-100/90 text-green-800 border-l-4 border-green-500' 
+            : 'bg-red-100/90 text-red-800 border-l-4 border-red-500'
         }`}>
           {notification.type === 'success' ? (
             <CheckCircle className="w-5 h-5" />
           ) : (
             <XCircle className="w-5 h-5" />
           )}
-          <span>{notification.message}</span>
+          <span className="font-semibold">{notification.message}</span>
         </div>
       )}
 
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center space-x-3 mb-4 sm:mb-0">
-            <FileText className="w-8 h-8 text-orange-600" />
+          <div className="flex items-center space-x-4 mb-4 sm:mb-0">
+            <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-4 rounded-2xl shadow-lg">
+              <FileText className="w-10 h-10 text-white" />
+            </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Customer Reports</h1>
-              <p className="text-gray-600">Submit and track your feedback and complaints</p>
+              <h1 className="text-5xl font-extrabold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                My Reports
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-1 text-lg">Submit and track your feedback</p>
             </div>
           </div>
           <button
             onClick={() => setShowNewReportForm(true)}
-            className="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-medium"
+            className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-xl font-extrabold flex items-center space-x-2 shadow-xl transform hover:scale-105 transition-all duration-200"
           >
-            <Plus className="w-4 h-4 mr-2" />
-            New Report
+            <Plus className="w-5 h-5" />
+            <span>New Report</span>
           </button>
         </div>
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {Object.entries(STATUS_CONFIG).map(([status, config]) => {
           const count = reports.filter(r => r.status === status).length;
           const Icon = config.icon;
+          const borderColors = {
+            PENDING: 'border-yellow-500',
+            IN_PROGRESS: 'border-orange-500',
+            RESOLVED: 'border-green-500',
+            REJECTED: 'border-red-500'
+          };
           return (
-            <div key={status} className="bg-white rounded-lg shadow-sm border p-4">
+            <div key={status} className={`bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-xl shadow-xl border-l-[6px] ${borderColors[status as keyof typeof borderColors]} p-6 hover:scale-105 transition-transform duration-200`}>
               <div className="flex items-center">
-                <div className={`p-2 rounded-lg ${config.color.split(' ')[0]} text-white`}>
-                  <Icon className="w-5 h-5" />
+                <div className={`p-3 rounded-xl bg-gradient-to-br ${status === 'PENDING' ? 'from-yellow-400 to-amber-400' : status === 'IN_PROGRESS' ? 'from-orange-500 to-amber-500' : status === 'RESOLVED' ? 'from-green-500 to-emerald-500' : 'from-red-500 to-pink-500'} text-white shadow-lg`}>
+                  <Icon className="w-6 h-6" />
                 </div>
-                <div className="ml-3">
+                <div className="ml-4">
                   <p className="text-sm text-gray-600">{config.label}</p>
                   <p className="text-2xl font-bold text-gray-900">{count}</p>
                 </div>
@@ -348,23 +363,23 @@ const CustomerReportsPage = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm border p-4">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-500 w-5 h-5" />
             <input
               type="text"
               placeholder="Search reports..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="w-full pl-12 pr-4 py-3 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm font-semibold"
             />
           </div>
           
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as ReportStatus | 'ALL')}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="px-4 py-3 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm font-semibold"
           >
             <option value="ALL">All Statuses</option>
             {Object.entries(STATUS_CONFIG).map(([status, config]) => (
@@ -375,7 +390,7 @@ const CustomerReportsPage = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as ReportType | 'ALL')}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="px-4 py-3 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm font-semibold"
           >
             <option value="ALL">All Types</option>
             {REPORT_TYPES.map(type => (
@@ -523,15 +538,15 @@ const CustomerReportsPage = () => {
               <button
                 onClick={handleSubmitReport}
                 disabled={submitting}
-                className="flex-1 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-medium disabled:opacity-50 flex items-center justify-center"
+                className="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-xl font-extrabold flex items-center justify-center shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:transform-none"
               >
-                {submitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
-                Submit Report
+                {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 mr-2" />}
+                <span>Submit Report</span>
               </button>
               <button
                 onClick={() => setShowNewReportForm(false)}
                 disabled={submitting}
-                className="flex-1 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-lg font-medium disabled:opacity-50"
+                className="flex-1 px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-extrabold disabled:opacity-50 shadow-lg"
               >
                 Cancel
               </button>
@@ -541,94 +556,98 @@ const CustomerReportsPage = () => {
       )}
 
       {/* Reports List */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         {filteredReports.length > 0 ? (
           filteredReports.map((report) => {
             const TypeIcon = getReportTypeIcon(report.type);
             const StatusIcon = STATUS_CONFIG[report.status].icon;
             
             return (
-              <div key={report.id} className="bg-white rounded-lg shadow-sm border p-6">
+              <div key={report.id} className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-6 hover:scale-[1.02] transition-transform duration-200">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex-1">
-                    <div className="flex items-start space-x-3">
-                      <div className={`p-2 rounded-lg ${getReportTypeColor(report.type)} text-white shrink-0`}>
-                        <TypeIcon className="w-5 h-5" />
+                    <div className="flex items-start space-x-4">
+                      <div className={`p-3 rounded-xl ${getReportTypeColor(report.type).replace('bg-', 'bg-gradient-to-br from-')} to-orange-600 text-white shrink-0 shadow-lg`}>
+                        <TypeIcon className="w-6 h-6" />
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <h3 className="text-lg font-semibold text-gray-900 truncate">{report.title}</h3>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_CONFIG[report.status].color}`}>
+                        <div className="flex items-center flex-wrap gap-2 mb-3">
+                          <h3 className="text-xl font-extrabold text-gray-900 dark:text-white">{report.title}</h3>
+                          <span className={`px-3 py-1 rounded-xl text-sm font-extrabold ${STATUS_CONFIG[report.status].color} shadow-sm`}>
                             {STATUS_CONFIG[report.status].label}
                           </span>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${PRIORITY_CONFIG[report.priority].color}`}>
+                          <span className={`px-3 py-1 rounded-xl text-sm font-extrabold ${PRIORITY_CONFIG[report.priority].color} shadow-sm`}>
                             {PRIORITY_CONFIG[report.priority].label}
                           </span>
                         </div>
                         
-                        <p className="text-gray-600 mb-3">{report.description}</p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-4 text-base">{report.description}</p>
                         
-                        <div className="flex flex-wrap items-center text-sm text-gray-500 space-x-4 mb-3">
-                          <span className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
+                        <div className="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-400 gap-4 mb-4">
+                          <span className="flex items-center font-semibold">
+                            <MapPin className="w-5 h-5 mr-2 text-orange-500" />
                             {getCanteenDisplayName(report.canteen?.name || '')}
                           </span>
-                          <span className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
+                          <span className="flex items-center font-semibold">
+                            <Calendar className="w-5 h-5 mr-2 text-orange-500" />
                             {new Date(report.createdAt).toLocaleDateString()}
                           </span>
                           {report.rating && (
-                            <span className="flex items-center">
-                              <Star className="w-4 h-4 mr-1 text-yellow-500 fill-current" />
+                            <span className="flex items-center font-semibold">
+                              <Star className="w-5 h-5 mr-2 text-yellow-500 fill-current" />
                               {report.rating}/5
                             </span>
                           )}
                           {report.order && (
-                            <span className="flex items-center">
-                              <FileText className="w-4 h-4 mr-1" />
+                            <span className="flex items-center font-semibold">
+                              <FileText className="w-5 h-5 mr-2 text-orange-500" />
                               Order #{report.order.id.slice(-6)}
                             </span>
                           )}
                         </div>
 
                         {report.response && (
-                          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                            <div className="flex items-center mb-2">
-                              <MessageSquare className="w-4 h-4 mr-2 text-orange-600" />
-                              <span className="font-medium text-gray-900">Response</span>
+                          <div className="mt-4 p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border-l-4 border-green-500 shadow-md">
+                            <div className="flex items-center mb-3">
+                              <MessageSquare className="w-5 h-5 mr-2 text-green-600" />
+                              <span className="font-extrabold text-gray-900 dark:text-white">Official Response</span>
                             </div>
-                            <p className="text-gray-700">{report.response}</p>
+                            <p className="text-gray-700 dark:text-gray-300 font-semibold">{report.response}</p>
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
                   
-                  <div className="mt-4 lg:mt-0 lg:ml-6 flex items-center">
-                    <StatusIcon className={`w-5 h-5 ${STATUS_CONFIG[report.status].color.split(' ')[1]}`} />
+                  <div className="mt-6 lg:mt-0 lg:ml-8 flex items-center">
+                    <div className="bg-white/50 backdrop-blur-sm p-4 rounded-xl shadow-lg">
+                      <StatusIcon className={`w-8 h-8 ${STATUS_CONFIG[report.status].color.split(' ')[1]}`} />
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
-            <FileText className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No reports found</h3>
-            <p className="mt-1 text-sm text-gray-500">
+          <div className="text-center py-16 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+            <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-6 rounded-2xl shadow-lg w-20 h-20 mx-auto flex items-center justify-center mb-6">
+              <FileText className="w-10 h-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">No reports found</h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               {searchTerm || statusFilter !== 'ALL' || typeFilter !== 'ALL'
                 ? 'Try adjusting your filters to see more reports.'
                 : "You haven't submitted any reports yet."}
             </p>
             {!searchTerm && statusFilter === 'ALL' && typeFilter === 'ALL' && (
-              <div className="mt-6">
+              <div className="mt-8">
                 <button
                   onClick={() => setShowNewReportForm(true)}
-                  className="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-medium"
+                  className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-8 py-4 rounded-xl font-extrabold flex items-center space-x-2 shadow-xl transform hover:scale-105 transition-all duration-200 mx-auto"
                 >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Submit Your First Report
+                  <Plus className="w-5 h-5" />
+                  <span>Submit Your First Report</span>
                 </button>
               </div>
             )}

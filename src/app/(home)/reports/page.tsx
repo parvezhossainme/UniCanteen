@@ -76,7 +76,7 @@ const HomeReportsPage = () => {
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-6">
         <div className="flex items-center space-x-3 mb-4">
           <FileText className="w-8 h-8 text-orange-600" />
           <div>
@@ -89,7 +89,7 @@ const HomeReportsPage = () => {
       {/* Stats Cards */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <FileText className="w-8 h-8 text-orange-600" />
               <div className="ml-3">
@@ -99,7 +99,7 @@ const HomeReportsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <Clock className="w-8 h-8 text-yellow-600" />
               <div className="ml-3">
@@ -109,7 +109,7 @@ const HomeReportsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <CheckCircle className="w-8 h-8 text-green-600" />
               <div className="ml-3">
@@ -119,7 +119,7 @@ const HomeReportsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <TrendingUp className="w-8 h-8 text-purple-600" />
               <div className="ml-3">
@@ -129,7 +129,7 @@ const HomeReportsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <Star className="w-8 h-8 text-orange-600" />
               <div className="ml-3">
@@ -139,7 +139,7 @@ const HomeReportsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
             <div className="flex items-center">
               <AlertTriangle className="w-8 h-8 text-red-600" />
               <div className="ml-3">
@@ -152,7 +152,7 @@ const HomeReportsPage = () => {
       )}
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm border p-4">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
           <div className="flex space-x-4">
             <select
@@ -193,8 +193,8 @@ const HomeReportsPage = () => {
       </div>
 
       {/* Recent Reports */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50">
+        <div className="p-6 border-b border-orange-100 dark:border-orange-900/50">
           <h2 className="text-xl font-semibold text-gray-900">Recent Reports</h2>
         </div>
         <div className="divide-y divide-gray-200">

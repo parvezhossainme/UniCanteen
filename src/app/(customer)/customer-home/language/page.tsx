@@ -5,7 +5,8 @@ import {
     Globe, 
     Check,
     ArrowLeft,
-    Volume2
+    Volume2,
+    Loader2
 } from 'lucide-react';
 
 type Language = {
@@ -56,30 +57,34 @@ const LanguageCustomer = () => {
     }
 
     return (
-        <div className="p-4  mx-auto">
-            <div className="mb-6">
-                <div className="flex items-center gap-3 mb-2">
+        <div className="max-w-7xl mx-auto p-6 backdrop-blur-sm">
+            <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-8 mb-8">
+                <div className="flex items-center gap-4">
                     <button
                         onClick={() => window.history.back()}
-                        className="p-2 hover:bg-gray-100 rounded-lg"
+                        className="p-3 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-xl transition-colors"
                     >
-                        <ArrowLeft className="w-5 h-5" />
+                        <ArrowLeft className="w-6 h-6 text-orange-600" />
                     </button>
-                    <Globe className="w-6 h-6 text-orange-500" />
-                    <h1 className="text-2xl font-bold text-gray-900">Language Settings</h1>
+                    <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-4 rounded-2xl shadow-lg">
+                        <Globe className="w-10 h-10 text-white" />
+                    </div>
+                    <div>
+                        <h1 className="text-5xl font-extrabold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Language</h1>
+                        <p className="text-gray-600 dark:text-gray-300 mt-1 text-lg">Choose your preferred language</p>
+                    </div>
                 </div>
-                <p className="text-gray-600 ml-14">Choose your preferred language for the delivery app</p>
             </div>
 
             {/* Current Language Display */}
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-                <div className="flex items-center gap-3">
-                    <div className="text-2xl">
+            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-6 mb-8 shadow-xl">
+                <div className="flex items-center gap-4">
+                    <div className="text-4xl bg-white/20 backdrop-blur-sm p-4 rounded-xl">
                         {languages.find(l => l.code === selectedLanguage)?.flag}
                     </div>
                     <div>
-                        <p className="font-medium text-orange-900">Current Language</p>
-                        <p className="text-orange-700">
+                        <p className="font-extrabold text-white text-lg">Current Language</p>
+                        <p className="text-white/90 text-xl font-semibold">
                             {languages.find(l => l.code === selectedLanguage)?.nativeName} 
                             ({languages.find(l => l.code === selectedLanguage)?.name})
                         </p>
@@ -88,16 +93,16 @@ const LanguageCustomer = () => {
             </div>
 
             {/* Language List */}
-            <div className="bg-white rounded-lg shadow-sm border">
-                <div className="p-4 border-b">
-                    <h2 className="font-semibold text-gray-900">Available Languages</h2>
+            <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 overflow-hidden mb-8">
+                <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">Available Languages</h2>
                 </div>
-                <div className="divide-y">
+                <div className="divide-y divide-gray-200 dark:divide-gray-700">
                     {languages.map((language) => (
                         <div
                             key={language.code}
-                            className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors ${
-                                selectedLanguage === language.code ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                            className={`p-6 cursor-pointer hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all duration-200 ${
+                                selectedLanguage === language.code ? 'bg-gradient-to-r from-orange-500/10 to-amber-500/10 border-l-4 border-l-orange-500' : ''
                             }`}
                             onClick={() => handleLanguageChange(language.code)}
                         >
@@ -128,9 +133,9 @@ const LanguageCustomer = () => {
                                         <Volume2 className="w-4 h-4 text-gray-500" />
                                     </button>
                                     {selectedLanguage === language.code && (
-                                        <div className="flex items-center gap-1 text-blue-600">
+                                        <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-xl font-extrabold shadow-lg">
                                             <Check className="w-5 h-5" />
-                                            <span className="text-sm font-medium">Selected</span>
+                                            <span className="text-sm">Selected</span>
                                         </div>
                                     )}
                                 </div>
@@ -141,9 +146,9 @@ const LanguageCustomer = () => {
             </div>
 
             {/* Language Info */}
-            <div className="mt-6 bg-gray-50 rounded-lg p-4">
-                <h3 className="font-medium text-gray-900 mb-2">Language Support</h3>
-                <ul className="text-sm text-gray-600 space-y-1">
+            <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-green-500 p-6 mb-6">
+                <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4">Language Support</h3>
+                <ul className="text-gray-700 dark:text-gray-300 space-y-2">
                     <li>• Full interface translation available for English and Bengali</li>
                     <li>• Partial translation available for Hindi and Urdu</li>
                     <li>• Right-to-left (RTL) layout support for Arabic and Urdu</li>
@@ -153,10 +158,10 @@ const LanguageCustomer = () => {
 
             {/* App Restart Notice */}
             {loading && (
-                <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-center gap-2">
-                        <div className="animate-spin w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-                        <p className="text-blue-800 text-sm">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 shadow-xl mb-6">
+                    <div className="flex items-center gap-3">
+                        <Loader2 className="w-6 h-6 animate-spin text-white" />
+                        <p className="text-white font-semibold">
                             Applying language changes... The app may reload to apply the new language.
                         </p>
                     </div>
@@ -164,9 +169,9 @@ const LanguageCustomer = () => {
             )}
 
             {/* Help Section */}
-            <div className="mt-6 bg-white rounded-lg shadow-sm border p-4">
-                <h3 className="font-medium text-gray-900 mb-2">Need Help?</h3>
-                <div className="text-sm text-gray-600 space-y-2">
+            <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-amber-500 p-6">
+                <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4">Need Help?</h3>
+                <div className="text-gray-700 dark:text-gray-300 space-y-3">
                     <p>If you encounter issues with language display:</p>
                     <ul className="list-disc list-inside ml-2">
                         <li>Ensure your device supports the selected language fonts</li>

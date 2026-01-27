@@ -147,9 +147,24 @@ const FoodItems = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-        <span className="ml-2">Loading foods...</span>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-900 dark:to-slate-800">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+          <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative">
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-200"></div>
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 absolute top-0 left-0"></div>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-1">
+                  Loading Foods
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Please wait...</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -157,102 +172,118 @@ const FoodItems = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Food Items Management</h1>
-          <p className="text-gray-600">Manage your menu items, pricing, and availability</p>
-        </div>
-        <div className="mt-4 sm:mt-0">
-          <Link 
-            href="/canteen-home/food-items/add-food"
-            className="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Food
-          </Link>
+      <div className="mb-6 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10"></div>
+        <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-6 rounded-3xl shadow-lg border-l-[6px] border-orange-500">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Food Items Management</h1>
+              <p className="text-gray-800 dark:text-gray-200 text-sm md:text-base font-semibold mt-2">Manage your menu items, pricing, and availability</p>
+            </div>
+            <div className="mt-4 sm:mt-0">
+              <Link 
+                href="/canteen-home/food-items/add-food"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Add New Food
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Stats Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-lg border">
+        <div className="relative bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-xl border-l-[6px] border-blue-500 hover:scale-105 transition-transform">
           <div className="flex items-center">
-            <Package className="h-5 w-5 text-blue-600 mr-2" />
+            <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-xl mr-3">
+              <Package className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <p className="text-sm text-gray-600">Total Items</p>
-              <p className="text-xl font-semibold">{foods.length}</p>
+              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">Total Items</p>
+              <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{foods.length}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
+        <div className="relative bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-xl border-l-[6px] border-green-500 hover:scale-105 transition-transform">
           <div className="flex items-center">
-            <Eye className="h-5 w-5 text-green-600 mr-2" />
+            <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-3 rounded-xl mr-3">
+              <Eye className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <p className="text-sm text-gray-600">Available</p>
-              <p className="text-xl font-semibold">{foods.filter(f => f.availability).length}</p>
+              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">Available</p>
+              <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{foods.filter(f => f.availability).length}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
+        <div className="relative bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-xl border-l-[6px] border-yellow-500 hover:scale-105 transition-transform">
           <div className="flex items-center">
-            <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2" />
+            <div className="bg-gradient-to-br from-yellow-500 to-amber-500 p-3 rounded-xl mr-3">
+              <AlertTriangle className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <p className="text-sm text-gray-600">Low Stock</p>
-              <p className="text-xl font-semibold">{foods.filter(f => f.stocks < 5).length}</p>
+              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">Low Stock</p>
+              <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{foods.filter(f => f.stocks < 5).length}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
+        <div className="relative bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-xl border-l-[6px] border-purple-500 hover:scale-105 transition-transform">
           <div className="flex items-center">
-            <Star className="h-5 w-5 text-yellow-600 mr-2" />
+            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-xl mr-3">
+              <Star className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <p className="text-sm text-gray-600">Avg Rating</p>
-              <p className="text-xl font-semibold">{(foods.reduce((acc, f) => acc + f.rating, 0) / foods.length || 0).toFixed(1)}</p>
+              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">Avg Rating</p>
+              <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{(foods.reduce((acc, f) => acc + f.rating, 0) / foods.length || 0).toFixed(1)}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white p-4 rounded-lg border mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search foods..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-            />
-          </div>
-          
-          <select 
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-          >
-            <option value="all">All Categories</option>
-            <option value="BREAKFAST">Breakfast</option>
-            <option value="LUNCH">Lunch</option>
-            <option value="DINNER">Dinner</option>
-            <option value="SNACK">Snacks</option>
-            <option value="BEVERAGE">Beverages</option>
-            <option value="DESSERT">Desserts</option>
-          </select>
-          
-          <select
-            value={filterAvailability}
-            onChange={(e) => setFilterAvailability(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-          >
-            <option value="all">All Status</option>
-            <option value="available">Available</option>
-            <option value="unavailable">Unavailable</option>
-          </select>
+      <div className="relative mb-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl opacity-5"></div>
+        <div className="relative bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search foods..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-11 pr-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
+              />
+            </div>
+            
+            <select 
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
+            >
+              <option value="all">All Categories</option>
+              <option value="BREAKFAST">Breakfast</option>
+              <option value="LUNCH">Lunch</option>
+              <option value="DINNER">Dinner</option>
+              <option value="SNACK">Snacks</option>
+              <option value="BEVERAGE">Beverages</option>
+              <option value="DESSERT">Desserts</option>
+            </select>
+            
+            <select
+              value={filterAvailability}
+              onChange={(e) => setFilterAvailability(e.target.value)}
+              className="px-4 py-3 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all shadow-sm font-semibold"
+            >
+              <option value="all">All Status</option>
+              <option value="available">Available</option>
+              <option value="unavailable">Unavailable</option>
+            </select>
 
-          <div className="text-sm text-gray-600 flex items-center">
-            Showing {filteredFoods.length} of {foods.length} items
+            <div className="text-sm text-gray-600 flex items-center">
+              Showing {filteredFoods.length} of {foods.length} items
+            </div>
           </div>
         </div>
       </div>

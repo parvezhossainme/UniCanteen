@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { Truck, MessageSquare, Clock, User, CheckCircle } from "lucide-react";
+import { Truck, MessageSquare, Clock, User, CheckCircle, XCircle } from "lucide-react";
 
 type OrderItem = {
   id: string;
@@ -146,13 +146,66 @@ export default function CompletedOrders() {
     }
   };
 
-  if (loading) return <div className="p-6 text-gray-600">Loading orders…</div>;
-  if (error) return <div className="p-6 text-red-600">{error}</div>;
-  if (orders.length === 0) return <div className="p-6 text-gray-600">No completed orders.</div>;
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-900 dark:to-slate-800">
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+        <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-200"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 absolute top-0 left-0"></div>
+            </div>
+            <div className="text-center">
+              <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-1">
+                Loading Orders
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Please wait while we fetch completed orders...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  if (error) return (
+    <div className="flex items-center justify-center min-h-screen p-6">
+      <div className="relative max-w-md w-full">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-rose-500 rounded-3xl opacity-10"></div>
+        <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border-l-[6px] border-red-500 rounded-3xl p-8 shadow-2xl">
+          <div className="flex items-center mb-4">
+            <div className="bg-gradient-to-br from-red-500 to-rose-500 p-3 rounded-xl">
+              <XCircle className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="ml-3 text-2xl font-extrabold text-gray-900 dark:text-white">Error</h2>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 font-semibold">{error}</p>
+        </div>
+      </div>
+    </div>
+  );
+  if (orders.length === 0) return (
+    <div className="flex items-center justify-center min-h-screen p-6">
+      <div className="text-center">
+        <div className="inline-flex items-center justify-center bg-gradient-to-br from-orange-500 to-amber-500 p-6 rounded-3xl mb-4">
+          <CheckCircle className="w-12 h-12 text-white" />
+        </div>
+        <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-2">
+          No Completed Orders
+        </h3>
+        <p className="text-gray-700 dark:text-gray-300 font-semibold">Completed orders will appear here.</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold mb-2">Completed Orders</h1>
+    <div className="container mx-auto p-6 space-y-6 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-900 dark:to-slate-800 min-h-screen">
+      <div className="mb-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10"></div>
+        <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-lg">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">Completed Orders</h1>
+          <p className="text-gray-800 dark:text-gray-200 text-base md:text-lg font-semibold">View and manage your completed orders</p>
+        </div>
+      </div>
       {orders.map((order) => {
         const created = new Date(order.createdAt);
         const itemsByCanteen = order.foodItems.reduce<Record<string, OrderItem[]>>((acc, item) => {
@@ -162,37 +215,37 @@ export default function CompletedOrders() {
         }, {});
         const subtotal = order.foodItems.reduce((sum, it) => sum + it.food.price * it.quantity, 0);
         return (
-          <div key={order.id} className="bg-white rounded-xl shadow p-4">
+          <div key={order.id} className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border-2 border-orange-200 dark:border-orange-700 hover:scale-[1.02] transition-transform">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusStyles[order.status]}`}>
+                <span className={`px-2 py-1 rounded-full text-xs font-bold ${statusStyles[order.status]}`}>
                   {order.status.replace(/_/g, " ")}
                 </span>
-                <span className="text-sm text-gray-500">Order ID: {order.id.slice(0, 8)}</span>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Order ID: {order.id.slice(0, 8)}</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300 font-semibold">
                   Placed {created.toLocaleDateString()} {created.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </span>
                 {order.customer?.user?.name && (
-                  <span className="text-sm text-gray-600">Customer: {order.customer.user.name}</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Customer: {order.customer.user.name}</span>
                 )}
               </div>
               <div className="text-right">
-                <div className="text-gray-600 text-sm">Subtotal (your items)</div>
-                <div className="text-orange-600 font-bold text-lg">৳{subtotal}</div>
+                <div className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Subtotal (your items)</div>
+                <div className="text-orange-600 dark:text-orange-400 font-extrabold text-lg">৳{subtotal}</div>
               </div>
             </div>
             <div className="mt-4 grid md:grid-cols-2 gap-4">
               {Object.entries(itemsByCanteen).map(([canteenName, items]) => (
-                <div key={canteenName} className="border rounded-lg p-3">
-                  <div className="font-semibold mb-2">{canteenName.replace(/_/g, " ")}</div>
+                <div key={canteenName} className="border-2 border-orange-200 dark:border-orange-700 rounded-xl p-3 bg-white/50 dark:bg-slate-700/50">
+                  <div className="font-extrabold mb-2 text-gray-900 dark:text-white">{canteenName.replace(/_/g, " ")}</div>
                   <ul className="space-y-2">
                     {items.map((it) => (
                       <li key={it.id} className="flex items-center justify-between text-sm">
                         <div className="truncate">
-                          <span className="font-medium">{it.food.name}</span>
-                          <span className="text-gray-500"> × {it.quantity}</span>
+                          <span className="font-bold text-gray-900 dark:text-white">{it.food.name}</span>
+                          <span className="text-gray-700 dark:text-gray-300 font-semibold"> × {it.quantity}</span>
                         </div>
-                        <div className="text-gray-700">৳{it.food.price * it.quantity}</div>
+                        <div className="text-gray-900 dark:text-white font-bold">৳{it.food.price * it.quantity}</div>
                       </li>
                     ))}
                   </ul>
@@ -200,7 +253,7 @@ export default function CompletedOrders() {
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-700 dark:text-gray-300 font-semibold">
                 {order.deliveryMan?.user?.name ? (
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-orange-500" />
@@ -221,7 +274,7 @@ export default function CompletedOrders() {
               
               <div className="flex items-center gap-3">
                 {order.deliveryAt && (
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-700 dark:text-gray-300 font-semibold">
                     Delivered at: {new Date(order.deliveryAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </div>
                 )}
@@ -229,7 +282,7 @@ export default function CompletedOrders() {
                 {canAssignDelivery(order) && (
                   <button
                     onClick={() => setShowAssignModal(order.id)}
-                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg flex items-center gap-1 transition-colors"
+                    className="px-3 py-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white text-sm rounded-xl flex items-center gap-1 font-bold shadow-lg hover:scale-105 transition-all"
                   >
                     <Truck className="w-4 h-4" />
                     Assign Delivery
@@ -239,7 +292,7 @@ export default function CompletedOrders() {
                 {order.assignedTo && (
                   <button
                     onClick={() => startConversationWithDelivery(order.id, order.assignedTo!)}
-                    className="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white text-sm rounded-lg flex items-center gap-1 transition-colors"
+                    className="px-3 py-1 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-sm rounded-xl flex items-center gap-1 font-bold shadow-lg hover:scale-105 transition-all"
                   >
                     <MessageSquare className="w-4 h-4" />
                     Message Delivery
@@ -254,17 +307,17 @@ export default function CompletedOrders() {
       {/* Delivery Assignment Modal */}
       {showAssignModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Assign Delivery Person</h3>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-md border-2 border-orange-200 dark:border-orange-700 shadow-2xl">
+            <h3 className="text-lg font-extrabold mb-4 text-gray-900 dark:text-white">Assign Delivery Person</h3>
             
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                 Select Delivery Person
               </label>
               <select
                 value={selectedDeliveryPerson}
                 onChange={(e) => setSelectedDeliveryPerson(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-200 dark:border-orange-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-semibold text-gray-900 dark:text-white bg-white/50 dark:bg-slate-700/50"
               >
                 <option value="">Choose delivery person...</option>
                 {deliveryPersons
@@ -285,7 +338,7 @@ export default function CompletedOrders() {
                   setShowAssignModal(null);
                   setSelectedDeliveryPerson("");
                 }}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border-2 border-orange-200 dark:border-orange-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-700 font-bold"
                 disabled={assigningOrder === showAssignModal}
               >
                 Cancel
@@ -293,7 +346,7 @@ export default function CompletedOrders() {
               <button
                 onClick={() => assignDeliveryPerson(showAssignModal, selectedDeliveryPerson)}
                 disabled={!selectedDeliveryPerson || assigningOrder === showAssignModal}
-                className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg transition-colors"
+                className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 text-white rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
               >
                 {assigningOrder === showAssignModal ? "Assigning..." : "Assign & Message"}
               </button>

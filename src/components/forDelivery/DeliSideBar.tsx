@@ -46,7 +46,7 @@ export default function DeliSideBar() {
                 <div
                     className={cn(
                         "w-[200px]", // Default expanded width during SSR
-                        "border-r transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-accent"
+                        "border-r border-white/30 transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-white/5 dark:bg-black/5 backdrop-blur-lg"
                     )}
                 >
                     <aside className="flex h-full flex-col w-full break-words px-4 overflow-x-hidden columns-1">
@@ -69,7 +69,7 @@ export default function DeliSideBar() {
             <div
                 className={cn(
                     isSidebarExpanded ? "w-[200px]" : "w-[68px]",
-                    "border-r transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-accent"
+                    "border-r border-white/30 transition-all duration-300 ease-in-out transform hidden sm:flex h-full bg-white/5 dark:bg-black/5 backdrop-blur-lg"
                 )}
             >
                 <aside className="flex h-full flex-col w-full break-words px-4 overflow-x-hidden columns-1">
@@ -100,7 +100,7 @@ export default function DeliSideBar() {
                 <div className="mt-[calc(calc(90vh)-40px)] relative">
                     <button
                         type="button"
-                        className="absolute bottom-32 right-[-12px] flex h-6 w-6 items-center justify-center border border-muted-foreground/20 rounded-full bg-accent shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
+                        className="absolute bottom-32 right-[-12px] flex h-6 w-6 items-center justify-center border border-muted-foreground/20 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
                         onClick={toggleSidebar}
                     >
                         {isSidebarExpanded ? (
@@ -129,8 +129,8 @@ export const SideNavItem: React.FC<{
                     href={path}
                     className={`h-full relative flex items-center whitespace-nowrap rounded-md ${
                         active
-                            ? "font-base text-sm bg-neutral-200 shadow-sm text-neutral-700 dark:bg-neutral-800 dark:text-white"
-                            : "hover:bg-neutral-200 hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                            ? "font-base text-sm bg-white/20 dark:bg-black/20 backdrop-blur-md shadow-sm text-neutral-700 dark:text-white"
+                            : "hover:bg-white/10 hover:backdrop-blur-md hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-black/10 dark:hover:text-white"
                     }`}
                 >
                     <div className="relative font-base text-sm py-1.5 px-2 flex flex-row items-center space-x-2 rounded-md duration-100">
@@ -146,8 +146,8 @@ export const SideNavItem: React.FC<{
                                 href={path}
                                 className={`h-full relative flex items-center whitespace-nowrap rounded-md ${
                                     active
-                                        ? "font-base text-sm bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-white"
-                                        : "hover:bg-neutral-200 hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                                        ? "font-base text-sm bg-white/20 dark:bg-black/20 backdrop-blur-md text-neutral-700 dark:text-white"
+                                        : "hover:bg-white/10 hover:backdrop-blur-md hover:text-neutral-700 text-neutral-500 dark:text-neutral-400 dark:hover:bg-black/10 dark:hover:text-white"
                                 }`}
                             >
                                 <div className="relative font-base text-sm p-2 flex flex-row items-center space-x-2 rounded-md duration-100">

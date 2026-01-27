@@ -83,23 +83,23 @@ export const HomeNavItems = () => {
                 },
             ],
         },
-        {
-            section: "SETTINGS",
-            items: [
-                {
-                    name: "Language",
-                    href: "/language",
-                    icon: <Languages size={20} />,
-                    active: isNavItemActive(pathname, "/language"),
-                },
-                {
-                    name: "Settings",
-                    href: "/settings",
-                    icon: <Settings size={20} />,
-                    active: isNavItemActive(pathname, "/settings"),
-                },
-            ],
-        },
+        // {
+        //     section: "SETTINGS",
+        //     items: [
+        //         {
+        //             name: "Language",
+        //             href: "/language",
+        //             icon: <Languages size={20} />,
+        //             active: isNavItemActive(pathname, "/language"),
+        //         },
+        //         {
+        //             name: "Settings",
+        //             href: "/settings",
+        //             icon: <Settings size={20} />,
+        //             active: isNavItemActive(pathname, "/settings"),
+        //         },
+        //     ],
+        // },
     ];
 };
 

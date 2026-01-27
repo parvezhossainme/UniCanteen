@@ -176,84 +176,93 @@ const CustomerSettingsPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex items-center space-x-2">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading settings...</span>
+      <div className="flex items-center justify-center min-h-screen backdrop-blur-sm">
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-8 shadow-2xl border-l-[6px] border-orange-500 max-w-md">
+          <div className="flex items-center space-x-3">
+            <Loader2 className="w-8 h-8 animate-spin text-orange-600" />
+            <div>
+              <p className="text-xl font-extrabold text-gray-900 dark:text-white">Loading Settings</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Fetching your preferences...</p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className=" mx-auto p-6 space-y-8">
+    <div className="max-w-7xl mx-auto p-6 space-y-8 backdrop-blur-sm">
       {/* Notification */}
       {notification && (
-        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg flex items-center space-x-2 ${
+        <div className={`fixed top-4 right-4 z-50 p-4 rounded-xl shadow-2xl flex items-center space-x-2 backdrop-blur-md ${
           notification.type === 'success' 
-            ? 'bg-green-100 text-green-800 border border-green-200' 
-            : 'bg-red-100 text-red-800 border border-red-200'
+            ? 'bg-green-100/90 text-green-800 border-l-4 border-green-500' 
+            : 'bg-red-100/90 text-red-800 border-l-4 border-red-500'
         }`}>
           {notification.type === 'success' ? (
             <CheckCircle className="w-5 h-5" />
           ) : (
             <AlertCircle className="w-5 h-5" />
           )}
-          <span>{notification.message}</span>
+          <span className="font-semibold">{notification.message}</span>
         </div>
       )}
 
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <div className="flex items-center space-x-3 mb-4">
-          <User className="w-8 h-8 text-blue-600" />
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500 p-8">
+        <div className="flex items-center space-x-4">
+          <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-4 rounded-2xl shadow-lg">
+            <User className="w-10 h-10 text-white" />
+          </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Customer Settings</h1>
-            <p className="text-gray-600">Manage your account preferences and personal information</p>
+            <h1 className="text-5xl font-extrabold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+              Settings
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300 mt-1 text-lg">Manage your account preferences</p>
           </div>
         </div>
       </div>
 
       {/* Account Overview */}
       {settings.totalOrders !== undefined && (
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">Account Overview</h2>
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">Account Overview</h2>
           </div>
           <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl border-l-4 border-orange-500 shadow-lg hover:scale-105 transition-transform duration-200">
                 <div className="flex items-center">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <CreditCard className="w-6 h-6 text-blue-600" />
+                  <div className="p-3 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl shadow-md">
+                    <CreditCard className="w-6 h-6 text-white" />
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-gray-600">Total Orders</p>
-                    <p className="text-2xl font-bold text-blue-600">{settings.totalOrders}</p>
+                  <div className="ml-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Total Orders</p>
+                    <p className="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">{settings.totalOrders}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl border-l-4 border-yellow-500 shadow-lg hover:scale-105 transition-transform duration-200">
                 <div className="flex items-center">
-                  <div className="p-2 bg-orange-100 rounded-lg">
-                    <Bell className="w-6 h-6 text-orange-600" />
+                  <div className="p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl shadow-md">
+                    <Bell className="w-6 h-6 text-white" />
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-gray-600">Unread Notifications</p>
-                    <p className="text-2xl font-bold text-orange-600">{settings.unreadNotifications}</p>
+                  <div className="ml-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Unread Notifications</p>
+                    <p className="text-3xl font-extrabold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">{settings.unreadNotifications}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-green-50 p-4 rounded-lg">
+              <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl border-l-4 border-green-500 shadow-lg hover:scale-105 transition-transform duration-200">
                 <div className="flex items-center">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <User className="w-6 h-6 text-green-600" />
+                  <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-md">
+                    <User className="w-6 h-6 text-white" />
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-gray-600">Member Since</p>
-                    <p className="text-sm font-bold text-green-600">
+                  <div className="ml-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 font-semibold">Member Since</p>
+                    <p className="text-sm font-bold text-gray-700 dark:text-gray-200">
                       {settings.accountCreated ? new Date(settings.accountCreated).toLocaleDateString() : 'N/A'}
                     </p>
                   </div>
@@ -265,10 +274,10 @@ const CustomerSettingsPage = () => {
       )}
 
       {/* Personal Information */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <User className="w-5 h-5 mr-2" />
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center">
+            <User className="w-6 h-6 mr-3 text-orange-500" />
             Personal Information
           </h2>
         </div>
@@ -282,7 +291,7 @@ const CustomerSettingsPage = () => {
                 type="text"
                 value={settings.name}
                 onChange={(e) => setSettings(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="Enter your full name"
               />
             </div>
@@ -295,7 +304,7 @@ const CustomerSettingsPage = () => {
                 type="text"
                 value={settings.uiuId}
                 onChange={(e) => setSettings(prev => ({ ...prev, uiuId: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="e.g., 011211023"
                 maxLength={15}
               />
@@ -309,7 +318,7 @@ const CustomerSettingsPage = () => {
                 type="text"
                 value={settings.studentId}
                 onChange={(e) => setSettings(prev => ({ ...prev, studentId: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="Alternative student ID"
               />
             </div>
@@ -323,7 +332,7 @@ const CustomerSettingsPage = () => {
                 type="email"
                 value={settings.email}
                 onChange={(e) => setSettings(prev => ({ ...prev, email: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="Enter your email"
               />
             </div>
@@ -337,7 +346,7 @@ const CustomerSettingsPage = () => {
                 type="tel"
                 value={settings.phone}
                 onChange={(e) => setSettings(prev => ({ ...prev, phone: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="01XXXXXXXXX"
                 pattern="^(\+88)?01[3-9]\d{8}$"
               />
@@ -348,10 +357,10 @@ const CustomerSettingsPage = () => {
       </div>
 
       {/* Notification Preferences */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <Bell className="w-5 h-5 mr-2" />
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center">
+            <Bell className="w-6 h-6 mr-3 text-orange-500" />
             Notification Preferences
           </h2>
         </div>
@@ -382,10 +391,10 @@ const CustomerSettingsPage = () => {
       </div>
 
       {/* Privacy Settings */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <Shield className="w-5 h-5 mr-2" />
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center">
+            <Shield className="w-6 h-6 mr-3 text-orange-500" />
             Privacy Settings
           </h2>
         </div>
@@ -414,9 +423,9 @@ const CustomerSettingsPage = () => {
       </div>
 
       {/* App Preferences */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900">App Preferences</h2>
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">App Preferences</h2>
         </div>
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -425,7 +434,7 @@ const CustomerSettingsPage = () => {
               <select
                 value={settings.theme}
                 onChange={(e) => setSettings(prev => ({ ...prev, theme: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
               >
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
@@ -438,7 +447,7 @@ const CustomerSettingsPage = () => {
               <select
                 value={settings.language}
                 onChange={(e) => setSettings(prev => ({ ...prev, language: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
               >
                 <option value="en">English</option>
                 <option value="bn">বাংলা</option>
@@ -462,10 +471,10 @@ const CustomerSettingsPage = () => {
       </div>
 
       {/* Password Change */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <Shield className="w-5 h-5 mr-2" />
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-orange-500">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center">
+            <Shield className="w-6 h-6 mr-3 text-orange-500" />
             Change Password
           </h2>
         </div>
@@ -480,7 +489,7 @@ const CustomerSettingsPage = () => {
                   type={passwordData.showPasswords ? "text" : "password"}
                   value={passwordData.currentPassword}
                   onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                   placeholder="Enter current password"
                 />
               </div>
@@ -494,7 +503,7 @@ const CustomerSettingsPage = () => {
                 type={passwordData.showPasswords ? "text" : "password"}
                 value={passwordData.newPassword}
                 onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="Enter new password"
               />
             </div>
@@ -507,7 +516,7 @@ const CustomerSettingsPage = () => {
                 type={passwordData.showPasswords ? "text" : "password"}
                 value={passwordData.confirmPassword}
                 onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border-2 border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/50 backdrop-blur-sm"
                 placeholder="Confirm new password"
               />
             </div>
@@ -526,28 +535,28 @@ const CustomerSettingsPage = () => {
             <button
               onClick={handlePasswordChange}
               disabled={!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword || saving}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-xl font-extrabold flex items-center space-x-2 shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-              Update Password
+              {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+              <span>Update Password</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Save Button */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-xl border-l-[6px] border-green-500 p-8">
         <div className="flex justify-between items-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-gray-700 dark:text-gray-300 font-semibold">
             Changes will be saved to your profile and applied immediately.
           </p>
           <button
             onClick={handleSaveSettings}
             disabled={saving}
-            className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 rounded-xl font-extrabold flex items-center space-x-2 shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {saving ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Save className="w-5 h-5 mr-2" />}
-            Save All Settings
+            {saving ? <Loader2 className="w-6 h-6 animate-spin" /> : <Save className="w-6 h-6" />}
+            <span>Save All Settings</span>
           </button>
         </div>
       </div>

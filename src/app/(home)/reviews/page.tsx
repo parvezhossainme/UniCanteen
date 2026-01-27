@@ -202,7 +202,7 @@ const ReviewsPage = () => {
             </div>
 
             {/* Filters */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-6">
                 <h2 className="text-lg font-semibold mb-4 flex items-center">
                     <Filter className="w-5 h-5 mr-2" />
                     Filter Reviews
@@ -265,7 +265,7 @@ const ReviewsPage = () => {
 
             {/* Rating Distribution */}
             {ratingDistribution.length > 0 && (
-                <div className="bg-white rounded-lg shadow-sm border p-6">
+                <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-6">
                     <h2 className="text-lg font-semibold mb-4">
                         Rating Distribution
                     </h2>
@@ -308,7 +308,7 @@ const ReviewsPage = () => {
                     {reviews.map((review) => (
                         <div
                             key={review.id}
-                            className="bg-white rounded-lg shadow-sm border p-6"
+                            className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-sm border border-orange-100 dark:border-orange-900/50 p-6"
                         >
                             <div className="flex items-start space-x-4">
                                 {/* Canteen Image */}
@@ -325,7 +325,7 @@ const ReviewsPage = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                                            <div className="w-full h-full bg-linear-to-brrom-blue-400 to-purple-500 flex items-center justify-center">
                                                 <MessageSquare className="w-8 h-8 text-white" />
                                             </div>
                                         )}

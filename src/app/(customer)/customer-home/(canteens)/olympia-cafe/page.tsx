@@ -60,14 +60,21 @@ const OlympiaCafePage = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             {/* Search Bar */}
-            <div className="flex justify-center mb-6">
-                <input
-                    type="text"
-                    placeholder="Search Anything Here"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full max-w-xl px-5 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 text-lg"
-                />
+            <div className="flex justify-center mb-8">
+                <div className="relative w-full max-w-2xl">
+                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search for delicious food..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="w-full px-6 py-4 pl-14 bg-gradient-to-r from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-800/80 dark:via-slate-700/80 dark:to-slate-800/80 backdrop-blur-md border-2 border-orange-200/60 dark:border-orange-700/60 focus:border-orange-500 dark:focus:border-orange-500 focus:ring-4 focus:ring-orange-500/20 outline-none text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 text-lg font-medium shadow-sm hover:shadow-md transition-all duration-300"
+                    />
+                </div>
             </div>
 
             {/* Cafe Title */}
@@ -81,10 +88,10 @@ const OlympiaCafePage = () => {
                     <button
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
-                        className={`px-5 py-2 rounded-full border font-medium transition ${
+                        className={`px-6 py-2.5 border-2 font-semibold transition-all duration-300 shadow-md ${
                             activeCategory === cat
-                                ? "bg-orange-100 text-orange-700 border-orange-400"
-                                : "bg-white text-orange-600 border-orange-200 hover:bg-orange-50"
+                                ? "bg-orange-500 text-white border-orange-600 shadow-lg shadow-orange-500/50 scale-105"
+                                : "bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-700 dark:text-slate-200 border-orange-200 dark:border-orange-800/50 hover:bg-orange-50 dark:hover:bg-slate-700/90 hover:border-orange-400 hover:scale-105"
                         }`}
                     >
                         {cat === "ALL"
@@ -123,55 +130,58 @@ const OlympiaCafePage = () => {
                     {filteredFoods.map((food) => (
                         <div
                             key={food.id}
-                            className="bg-white rounded-xl shadow p-4 flex flex-col gap-2 border hover:shadow-lg transition"
+                            className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl border-l-4 border-orange-500 hover:border-orange-600 group"
                         >
-                            <div className="relative w-full h-40 mb-2">
+                            <div className="relative w-full h-48 overflow-hidden">
                                 <Image
                                     src={food.image || "/default-food.jpg"}
                                     alt={food.name}
                                     fill
-                                    className="object-cover rounded-lg"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                {/* Price Badge */}
+                                <div className="absolute top-3 right-3">
+                                    <span className="bg-orange-500 text-white px-3 py-1.5 text-sm font-bold shadow-lg">
+                                        ৳{food.price}
+                                    </span>
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-lg font-semibold">
+                            <div className="p-4 bg-gradient-to-br from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-800/80 dark:via-slate-700/80 dark:to-slate-800/80">
+                                <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                                     {food.name}
                                 </h2>
-                                <span className="font-bold text-orange-500 text-lg">
-                                    ৳{food.price}
-                                </span>
-                            </div>
-                            <p className="text-gray-600 text-sm">
-                                {food.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 my-1">
-                                {food.category.map((cat) => (
-                                    <span
-                                        key={cat}
-                                        className="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-medium"
-                                    >
-                                        {CATEGORY_LABELS[cat] ||
-                                            cat.replace(/_/g, " ")}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="flex items-center justify-between mt-2">
-                                <div className="flex items-center gap-1 text-yellow-500 text-sm font-semibold">
-                                    <span>★</span>
-                                    <span>{food.rating ?? "5.0"}</span>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                                    {food.description}
+                                </p>
+                                <div className="flex flex-wrap gap-1.5 mb-3">
+                                    {food.category.map((cat) => (
+                                        <span
+                                            key={cat}
+                                            className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-2 py-0.5 text-xs font-medium border border-orange-200 dark:border-orange-800"
+                                        >
+                                            {CATEGORY_LABELS[cat] ||
+                                                cat.replace(/_/g, " ")}
+                                        </span>
+                                    ))}
                                 </div>
-                                <button
-                                    className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold hover:bg-orange-600 transition disabled:opacity-60"
-                                    disabled={
-                                        !food.availability ||
-                                        food.stocks === 0 ||
-                                        addingId === food.id
-                                    }
-                                    onClick={async () => {
-                                        setAddingId(food.id);
-                                        try {
-                                            const res = await fetch(
-                                                "/api/cart/add-to-cart",
+                                <div className="flex items-center justify-between pt-3 border-t-2 border-orange-200 dark:border-orange-700/50">
+                                    <div className="flex items-center gap-1 bg-orange-500 text-white px-2 py-1">
+                                        <span className="text-sm">★</span>
+                                        <span className="text-sm font-bold">{food.rating ?? "5.0"}</span>
+                                    </div>
+                                    <button
+                                        className="bg-orange-500 text-white px-4 py-1.5 text-sm font-bold hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg hover:scale-105 duration-300"
+                                        disabled={
+                                            !food.availability ||
+                                            food.stocks === 0 ||
+                                            addingId === food.id
+                                        }
+                                        onClick={async () => {
+                                            setAddingId(food.id);
+                                            try {
+                                                const res = await fetch(
+                                                    "/api/cart/add-to-cart",
                                                 {
                                                     method: "POST",
                                                     headers: {
@@ -215,26 +225,29 @@ const OlympiaCafePage = () => {
                                         : "+ Add Product"}
                                 </button>
                             </div>
-                            <div className="flex justify-between items-center mt-1">
+                        </div>
+                        <div className="px-4 pb-3 bg-gradient-to-br from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-800/80 dark:via-slate-700/80 dark:to-slate-800/80">
+                            <div className="flex justify-between items-center">
                                 <span
-                                    className={`px-2 py-1 rounded text-xs ${
+                                    className={`px-2 py-0.5 text-xs font-medium ${
                                         food.availability
-                                            ? "bg-green-100 text-green-700"
-                                            : "bg-red-100 text-red-700"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-red-500 text-white"
                                     }`}
                                 >
                                     {food.availability
                                         ? "Available"
                                         : "Out of Stock"}
                                 </span>
-                                <span className="text-sm text-gray-500">
-                                    Stocks: {food.stocks}
+                                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+                                    Stock: {food.stocks}
                                 </span>
                             </div>
                         </div>
-                    ))}
-                </div>
-            )}
+                    </div>
+                ))}
+            </div>
+        )}
 
             {/* Success Popup */}
             {showSuccessPopup && (

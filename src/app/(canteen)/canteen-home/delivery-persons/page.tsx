@@ -144,15 +144,23 @@ export default function DeliveryPersonsPage() {
 
   if (isLoading) {
     return (
-      <div className="p-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-gray-200 rounded-lg h-32"></div>
-            ))}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-900 dark:to-slate-800">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+          <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative">
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-200"></div>
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 absolute top-0 left-0"></div>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-1">
+                  Loading Delivery Data
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">Please wait while we fetch delivery personnel...</p>
+              </div>
+            </div>
           </div>
-          <div className="bg-gray-200 rounded-lg h-96"></div>
         </div>
       </div>
     );
@@ -160,19 +168,24 @@ export default function DeliveryPersonsPage() {
 
   if (error) {
     return (
-      <div className="p-6">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <AlertCircle className="w-6 h-6 text-red-600" />
-            <h2 className="text-red-800 font-semibold">Error Loading Delivery Data</h2>
+      <div className="flex items-center justify-center min-h-screen p-6">
+        <div className="relative max-w-md w-full">
+          <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-rose-500 rounded-3xl opacity-10"></div>
+          <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border-l-[6px] border-red-500 rounded-3xl p-8 shadow-2xl">
+            <div className="flex items-center mb-4">
+              <div className="bg-gradient-to-br from-red-500 to-rose-500 p-3 rounded-xl">
+                <AlertCircle className="h-6 w-6 text-white" />
+              </div>
+              <h2 className="ml-3 text-2xl font-extrabold text-gray-900 dark:text-white">Error Loading Data</h2>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 font-semibold mb-4">{error}</p>
+            <button
+              onClick={fetchDeliveryData}
+              className="w-full bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
+            >
+              Retry Loading
+            </button>
           </div>
-          <p className="text-red-600 mb-4">{error}</p>
-          <button 
-            onClick={fetchDeliveryData}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            Retry
-          </button>
         </div>
       </div>
     );
@@ -180,70 +193,87 @@ export default function DeliveryPersonsPage() {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Delivery Management</h1>
-          <p className="text-gray-500 mt-1">Manage and track your delivery personnel</p>
+      <div className="mb-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10"></div>
+        <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">Delivery Management</h1>
+              <p className="text-gray-800 dark:text-gray-200 text-base md:text-lg font-semibold">Manage and track your delivery personnel</p>
+            </div>
+            <button className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:scale-105 transition-all">
+              <Plus className="w-4 h-4" />
+              Add Person
+            </button>
+          </div>
         </div>
-        <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
-          <Plus className="w-4 h-4" />
-          Add Delivery Person
-        </button>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-linear-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-blue-100 text-sm">Total Delivery Persons</p>
-              <p className="text-3xl font-bold">{stats?.totalDeliveryPersons ?? 0}</p>
-            </div>
-            <div className=" bg-opacity-20 rounded-full p-3">
-              <Users className="w-6 h-6" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-linear-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-green-100 text-sm">Available Now</p>
-              <p className="text-3xl font-bold">{stats?.availableNow ?? 0}</p>
-            </div>
-            <div className=" bg-opacity-20 rounded-full p-3">
-              <Activity className="w-6 h-6" />
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border-l-[6px] border-blue-500 hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Total Delivery Persons</p>
+                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats?.totalDeliveryPersons ?? 0}</p>
+              </div>
+              <div className="shrink-0 bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-2xl shadow-lg">
+                <Users className="h-8 w-8 text-white" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-linear-to-r from-yellow-500 to-yellow-600 rounded-lg p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-yellow-100 text-sm">Average Rating</p>
-              <p className="text-3xl font-bold">{stats?.averageRating ? stats.averageRating.toFixed(1) : "0.0"}</p>
-            </div>
-            <div className=" bg-opacity-20 rounded-full p-3">
-              <Star className="w-6 h-6" />
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border-l-[6px] border-green-500 hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Available Now</p>
+                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats?.availableNow ?? 0}</p>
+              </div>
+              <div className="shrink-0 bg-gradient-to-br from-green-500 to-emerald-500 p-3 rounded-2xl shadow-lg">
+                <Activity className="h-8 w-8 text-white" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-linear-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-purple-100 text-sm">Completed Today</p>
-              <p className="text-3xl font-bold">{stats?.completedToday ?? 0}</p>
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border-l-[6px] border-yellow-500 hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Average Rating</p>
+                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats?.averageRating ? stats.averageRating.toFixed(1) : "0.0"}</p>
+              </div>
+              <div className="shrink-0 bg-gradient-to-br from-yellow-500 to-orange-500 p-3 rounded-2xl shadow-lg">
+                <Star className="h-8 w-8 text-white" />
+              </div>
             </div>
-            <div className=" bg-opacity-20 rounded-full p-3">
-              <Package className="w-6 h-6" />
+          </div>
+        </div>
+
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border-l-[6px] border-purple-500 hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Completed Today</p>
+                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats?.completedToday ?? 0}</p>
+              </div>
+              <div className="shrink-0 bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-2xl shadow-lg">
+                <Package className="h-8 w-8 text-white" />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border-2 border-orange-200 dark:border-orange-700 p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -253,7 +283,7 @@ export default function DeliveryPersonsPage() {
                 placeholder="Search delivery persons..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                className="w-full pl-10 pr-4 py-2 border-2 border-orange-200 dark:border-orange-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-semibold text-gray-900 dark:text-white bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm"
               />
             </div>
           </div>
@@ -262,7 +292,7 @@ export default function DeliveryPersonsPage() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="px-3 py-2 border-2 border-orange-200 dark:border-orange-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-semibold text-gray-900 dark:text-white bg-white/50 dark:bg-slate-700/50"
             >
               <option value="all">All Status</option>
               <option value="available">Available</option>
@@ -272,7 +302,7 @@ export default function DeliveryPersonsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="px-3 py-2 border-2 border-orange-200 dark:border-orange-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-semibold text-gray-900 dark:text-white bg-white/50 dark:bg-slate-700/50"
             >
               <option value="name">Sort by Name</option>
               <option value="rating">Sort by Rating</option>
@@ -284,29 +314,29 @@ export default function DeliveryPersonsPage() {
       </div>
 
       {/* Delivery Persons List */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h3 className="text-lg font-medium text-gray-900">Delivery Personnel</h3>
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border-2 border-orange-200 dark:border-orange-700">
+        <div className="p-6 border-b-2 border-orange-200 dark:border-orange-700">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white">Delivery Personnel</h3>
         </div>
         
         {deliveryPersons.length === 0 ? (
           <div className="p-12 text-center">
             <Truck className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No Delivery Persons Found</h3>
-            <p className="text-gray-500 mb-4">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">No Delivery Persons Found</h3>
+            <p className="text-gray-700 dark:text-gray-300 font-semibold mb-4">
               {searchTerm || filterStatus !== "all" 
                 ? "Try adjusting your filters to see more delivery persons." 
                 : "You haven't added any delivery persons yet."}
             </p>
-            <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 mx-auto transition-colors">
+            <button className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-4 py-2 rounded-xl flex items-center gap-2 mx-auto font-bold shadow-lg hover:scale-105 transition-all">
               <Plus className="w-4 h-4" />
               Add First Delivery Person
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-orange-100 dark:divide-orange-900">
             {deliveryPersons.map((person) => (
-              <div key={person.userId} className="p-6 hover:bg-gray-50">
+              <div key={person.userId} className="p-6 hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
@@ -315,7 +345,7 @@ export default function DeliveryPersonsPage() {
                     
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <h4 className="font-medium text-gray-900">
+                        <h4 className="font-bold text-gray-900 dark:text-white">
                           {person.user.name || "Unknown Delivery Person"}
                         </h4>
                         {person.DeliveryProfile ? (
@@ -336,7 +366,7 @@ export default function DeliveryPersonsPage() {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-gray-700 dark:text-gray-300 font-semibold">
                         <div className="flex items-center gap-1">
                           <Phone className="w-4 h-4" />
                           {person.user.phone || person.DeliveryProfile?.phone || 'No phone'}
@@ -357,20 +387,20 @@ export default function DeliveryPersonsPage() {
 
                   <div className="flex items-center gap-6">
                     <div className="text-center">
-                      <p className="text-sm text-gray-500">Rating</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Rating</p>
                       {renderStars(person.DeliveryProfile?.rating || null)}
                     </div>
 
                     <div className="text-center">
-                      <p className="text-sm text-gray-500">Completed</p>
-                      <p className="font-medium text-gray-900">
+                      <p className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Completed</p>
+                      <p className="font-extrabold text-gray-900 dark:text-white">
                         {person.DeliveryProfile?.completed ?? 0}
                       </p>
                     </div>
 
                     <div className="text-center">
-                      <p className="text-sm text-gray-500">Success Rate</p>
-                      <p className="font-medium text-gray-900">
+                      <p className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Success Rate</p>
+                      <p className="font-extrabold text-gray-900 dark:text-white">
                         {(() => {
                           const completed = person.DeliveryProfile?.completed || 0;
                           const cancelled = person.DeliveryProfile?.cancelled || 0;
@@ -381,8 +411,8 @@ export default function DeliveryPersonsPage() {
                     </div>
 
                     <div className="text-center">
-                      <p className="text-sm text-gray-500">Total Orders</p>
-                      <p className="font-medium text-gray-900">{person._count?.deliveries ?? 0}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 font-semibold">Total Orders</p>
+                      <p className="font-extrabold text-gray-900 dark:text-white">{person._count?.deliveries ?? 0}</p>
                     </div>
 
                     <button className="p-2 hover:bg-gray-200 rounded-lg">

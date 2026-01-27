@@ -78,14 +78,21 @@ const KhansKitchen = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             {/* Search Bar */}
-            <div className="flex justify-center mb-6">
-                <input
-                    type="text"
-                    placeholder="Search Anything Here"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full max-w-xl px-5 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 text-lg"
-                />
+            <div className="flex justify-center mb-8">
+                <div className="relative w-full max-w-2xl">
+                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search for delicious food..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="w-full px-6 py-4 pl-14 bg-gradient-to-r from-orange-50/80 via-amber-50/80 to-yellow-50/80 dark:from-slate-800/80 dark:via-slate-700/80 dark:to-slate-800/80 backdrop-blur-md border-2 border-orange-200/60 dark:border-orange-700/60 focus:border-orange-500 dark:focus:border-orange-500 focus:ring-4 focus:ring-orange-500/20 outline-none text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 text-lg font-medium shadow-sm hover:shadow-md transition-all duration-300"
+                    />
+                </div>
             </div>
 
             {/* Cafe Title */}
@@ -99,10 +106,10 @@ const KhansKitchen = () => {
                     <button
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
-                        className={`px-5 py-2 rounded-full border font-medium transition ${
+                        className={`px-6 py-2.5 rounded-full border-2 font-semibold transition-all duration-300 shadow-md ${
                             activeCategory === cat
-                                ? "bg-orange-100 text-orange-700 border-orange-400"
-                                : "bg-white text-orange-600 border-orange-200 hover:bg-orange-50"
+                                ? "bg-linear-to-r from-orange-500 to-amber-500 text-white border-orange-600 shadow-lg shadow-orange-500/50 scale-105"
+                                : "bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-700 dark:text-slate-200 border-orange-200 dark:border-orange-800/50 hover:bg-orange-50 dark:hover:bg-slate-700/90 hover:border-orange-400 hover:scale-105"
                         }`}
                     >
                         {cat === "ALL"
@@ -125,41 +132,43 @@ const KhansKitchen = () => {
                     No foods found in this category.
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredFoods.map((food) => (
                         <div
                             key={food.id}
-                            className="bg-white rounded-xl shadow p-4 flex flex-col gap-2 border hover:shadow-lg transition"
+                            className="group bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border-l-4 border-orange-500 hover:border-orange-600"
                         >
-                            <div className="relative w-full h-40 mb-2">
+                            <div className="relative w-full h-56 overflow-hidden">
                                 <Image
                                     src={food.image || "/default-food.jpg"}
                                     alt={food.name}
                                     fill
-                                    className="object-cover rounded-lg"
+                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
+                                <div className="absolute top-3 right-3">
+                                    <span className="bg-orange-500 text-white px-4 py-1.5 text-lg font-bold shadow-lg">
+                                        ৳{food.price}
+                                    </span>
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-lg font-semibold">
+                            <div className="p-5 space-y-3">
+                                <h2 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                                     {food.name}
                                 </h2>
-                                <span className="font-bold text-orange-500 text-lg">
-                                    ৳{food.price}
-                                </span>
-                            </div>
-                            <p className="text-gray-600 text-sm">
-                                {food.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 my-1">
-                                {food.category.map((cat) => (
-                                    <span
-                                        key={cat}
-                                        className="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-medium"
-                                    >
-                                        {CATEGORY_LABELS[cat] ||
-                                            cat.replace(/_/g, " ")}
-                                    </span>
-                                ))}
+                                <p className="text-slate-600 dark:text-slate-300 text-sm line-clamp-2">
+                                    {food.description}
+                                </p>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                    {food.category.slice(0, 3).map((cat) => (
+                                        <span
+                                            key={cat}
+                                            className="bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-3 py-1 text-xs font-medium border border-orange-200 dark:border-orange-700/50"
+                                        >
+                                            {CATEGORY_LABELS[cat] ||
+                                                cat.replace(/_/g, " ")}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     ))}

@@ -317,17 +317,20 @@ export default function PendingOrders() {
     <div className="p-6 mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Orders Management</h1>
-          <p className="text-gray-600">Monitor and manage incoming orders</p>
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl opacity-10 -left-4 -right-4"></div>
+          <div className="relative">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Orders Management</h1>
+            <p className="text-gray-700 font-semibold">Monitor and manage incoming orders</p>
+          </div>
         </div>
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <button
             onClick={() => setAutoRefresh(!autoRefresh)}
-            className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium ${
+            className={`flex items-center px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:scale-105 transition-all ${
               autoRefresh 
-                ? 'bg-green-100 text-green-700 border border-green-200' 
-                : 'bg-gray-100 text-gray-700 border border-gray-200'
+                ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
+                : 'bg-white text-gray-700 border-2 border-gray-300'
             }`}
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-spin' : ''}`} />
@@ -335,7 +338,7 @@ export default function PendingOrders() {
           </button>
           <button
             onClick={fetchOrders}
-            className="flex items-center px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium"
+            className="flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-sm font-bold shadow-lg hover:scale-105 transition-all"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Refresh Now
@@ -345,57 +348,79 @@ export default function PendingOrders() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-lg border">
-          <div className="flex items-center">
-            <Clock className="h-5 w-5 text-yellow-600 mr-2" />
-            <div>
-              <p className="text-sm text-gray-600">Pending</p>
-              <p className="text-xl font-semibold">{orders.filter(o => o.status === 'PENDING').length}</p>
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white/80 backdrop-blur-md p-4 rounded-2xl border-l-[6px] border-yellow-500 shadow-xl hover:scale-105 transition-transform">
+            <div className="flex items-center">
+              <div className="bg-gradient-to-br from-yellow-500 to-amber-500 p-2 rounded-xl">
+                <Clock className="h-5 w-5 text-white" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-bold text-gray-600">Pending</p>
+                <p className="text-2xl font-extrabold text-gray-900">{orders.filter(o => o.status === 'PENDING').length}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
-          <div className="flex items-center">
-            <Package className="h-5 w-5 text-purple-600 mr-2" />
-            <div>
-              <p className="text-sm text-gray-600">Preparing</p>
-              <p className="text-xl font-semibold">{orders.filter(o => ['ACCEPTED', 'IN_PROGRESS'].includes(o.status)).length}</p>
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white/80 backdrop-blur-md p-4 rounded-2xl border-l-[6px] border-purple-500 shadow-xl hover:scale-105 transition-transform">
+            <div className="flex items-center">
+              <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-2 rounded-xl">
+                <Package className="h-5 w-5 text-white" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-bold text-gray-600">Preparing</p>
+                <p className="text-2xl font-extrabold text-gray-900">{orders.filter(o => ['ACCEPTED', 'IN_PROGRESS'].includes(o.status)).length}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
-          <div className="flex items-center">
-            <Truck className="h-5 w-5 text-blue-600 mr-2" />
-            <div>
-              <p className="text-sm text-gray-600">Delivering</p>
-              <p className="text-xl font-semibold">{orders.filter(o => o.status === 'DELIVERING').length}</p>
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white/80 backdrop-blur-md p-4 rounded-2xl border-l-[6px] border-blue-500 shadow-xl hover:scale-105 transition-transform">
+            <div className="flex items-center">
+              <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-2 rounded-xl">
+                <Truck className="h-5 w-5 text-white" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-bold text-gray-600">Delivering</p>
+                <p className="text-2xl font-extrabold text-gray-900">{orders.filter(o => o.status === 'DELIVERING').length}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg border">
-          <div className="flex items-center">
-            <span className="h-5 w-5 text-green-600 mr-2">৳</span>
-            <div>
-              <p className="text-sm text-gray-600">Total Value</p>
-              <p className="text-xl font-semibold">৳{orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(0)}</p>
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-white/80 backdrop-blur-md p-4 rounded-2xl border-l-[6px] border-green-500 shadow-xl hover:scale-105 transition-transform">
+            <div className="flex items-center">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-2 rounded-xl flex items-center justify-center">
+                <span className="text-white font-extrabold text-lg">৳</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-bold text-gray-600">Total Value</p>
+                <p className="text-2xl font-extrabold text-gray-900">৳{orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(0)}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white p-4 rounded-lg border mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search by customer name or order ID..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-            />
-          </div>
+      <div className="relative mb-6">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-5"></div>
+        <div className="relative bg-white/80 backdrop-blur-md p-4 rounded-2xl border-l-[6px] border-blue-500 shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search by customer name or order ID..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border-2 border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm font-semibold"
+              />
+            </div>
           
           <select 
             value={statusFilter}
@@ -413,6 +438,7 @@ export default function PendingOrders() {
             Showing {filteredOrders.length} of {orders.length} orders
           </div>
         </div>
+      </div>
       </div>
 
       {/* Orders List */}
